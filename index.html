@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="description" content="Book airport lounges with Holiday Extras at all major UK airports.">
+    <meta name="theme-color" content="#552e92">
+    <title>Airport Lounges | Holiday Extras</title>
+    <link rel="icon" href="mole-favicon-package/mole-yellow-final.ico" sizes="any">
+    <link rel="icon" href="mole-favicon-package/mole-yellow-final-32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="mole-favicon-package/mole-yellow-final-16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="mole-favicon-package/mole-yellow-final-180.png">
+    <link rel="preconnect" href="https://www.holidayextras.com">
+    <link rel="dns-prefetch" href="https://www.holidayextras.com">
+    <link rel="preconnect" href="https://ipapi.co">
+    <link rel="dns-prefetch" href="https://ipapi.co">
+    <link rel="preload" as="image" fetchpriority="high"
+          href="get-holiday-ready.webp"
+          imagesrcset="get-holiday-ready-824.webp 824w, get-holiday-ready.webp 1200w"
+          imagesizes="100vw">
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="nunito-latin.woff2">
+    <script defer src="//dbq5t2jl0vcpj.cloudfront.net/hx-tracker/tracker-v6-latest.min.js"></script>
+    <style>
+        /* ── Nunito — self-hosted ── */
+        @font-face {
+            font-family: 'Nunito';
+            font-style: normal;
+            font-weight: 300 800;
+            font-display: swap;
+            src: url('nunito-latin.woff2') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                           U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                           U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --purple:   #552e92;
+            --purple-d: #3d2070;
+            --purple-l: #f0edf8;
+            --purple-m: #c9bfe8;
+            --green:    #38a169;
+            --green-d:  #2f855a;
+            --green-l:  #f0fff4;
+            --bg:       #f5f5f7;
+            --border:   #e2e8f0;
+            --text:     #1a1a2e;
+            --muted:    #4a5568;
+        }
+
+        html { font-size: 18px; overflow-x: clip; background: #552e92; }
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 1rem;
+            overflow-x: clip;
+            font-weight: 300;
+            background: white;
+            color: var(--text);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Header ── */
+        header {
+            line-height: 0;
+            background: #552e92;
+            padding-top: env(safe-area-inset-top);
+        }
+        .header-logo {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        @media (min-width: 640px) {
+            .header-logo {
+                height: 72px;
+                width: 100%;
+                background: #552e92;
+                object-fit: contain;
+                object-position: left center;
+            }
+        }
+
+        /* ── Container ── */
+        .container { max-width: 620px; width: 100%; margin: 0 auto; }
+
+        /* ── Hero image ── */
+        .hero-wrap { width: 100%; line-height: 0; }
+        .hero-wrap img { display: block; width: 100%; height: auto; }
+        .hero-wrap.hidden { display: none; }
+
+        /* ── Steps ── */
+        .step { display: none; padding: 24px 20px 120px; }
+        .step.active { display: block; animation: fade-up .2s ease; }
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Step title & description ── */
+        .step-title {
+            font-size: 26px; font-weight: 700; color: #1a1a2e;
+            line-height: 1.2; margin-bottom: 20px;
+        }
+
+        /* ── Labels ── */
+        .sec-lbl {
+            font-size: .75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: .08em; color: var(--muted); margin-bottom: .625rem;
+        }
+
+        /* ── GPS big button ── */
+        .location-btn {
+            width: 100%; background: var(--purple); color: white; border: none;
+            border-radius: 10px; padding: 1rem 1.25rem; font-size: .95rem; font-weight: 700;
+            font-family: inherit; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: .5rem;
+            margin-bottom: 1.375rem; transition: opacity .3s, background .15s; min-height: 52px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .location-btn:hover:not(:disabled) { background: var(--purple-d); }
+        .location-btn:disabled { opacity: .65; cursor: not-allowed; }
+
+        /* ── Nearest row ── */
+        .nearest-row { margin-bottom: .625rem; }
+        .nearest-row .sec-lbl { margin-bottom: .2rem; }
+        .gps-link {
+            display: block; font-size: .78rem; font-weight: 600; color: #276749;
+            text-decoration: none;
+            border: none; background: none; font-family: inherit; padding: 0; cursor: default;
+        }
+
+        /* ── Recents strip ── */
+        .recents-section { margin-bottom: 1.375rem; }
+        .recent-chips { display: flex; flex-wrap: wrap; gap: .45rem; }
+        .recent-chip {
+            display: inline-flex; align-items: center;
+            background: var(--purple-l); border: 1.5px solid var(--purple-m);
+            border-radius: 20px; overflow: hidden;
+            transition: background .12s, border-color .12s;
+        }
+        .recent-chip:hover { background: var(--purple-m); }
+        .rc-btn {
+            background: none; border: none; padding: .45rem .35rem .45rem .875rem;
+            font-family: inherit; cursor: pointer; display: inline-flex; align-items: center;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .rc-name { font-size: .85rem; font-weight: 400; color: var(--text); }
+        .rc-x {
+            font-size: .65rem; color: var(--muted); padding: 2px 6px;
+            border-radius: 10px; line-height: 1; cursor: pointer;
+            background: none; border: none; font-family: inherit;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .rc-x:hover { background: var(--purple-m); color: var(--text); }
+
+        /* ── Airport grid ── */
+        .airport-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: .5rem; margin-bottom: 1.25rem;
+        }
+        @media (min-width: 360px) { .airport-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 480px) { .airport-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        .a-tile {
+            border: 2px solid var(--border); border-radius: 10px; padding: .875rem .5rem;
+            cursor: pointer; text-align: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: border-color .12s, background .12s, transform .15s;
+            user-select: none; -webkit-tap-highlight-color: transparent;
+        }
+        .a-tile:hover       { border-color: var(--purple); background: var(--purple-l); }
+        .a-tile.selected    { border-color: var(--purple); background: var(--purple-l); transform: scale(1.04); }
+        .a-tile.confirming  { border-color: var(--green); background: var(--green-l); animation: pop .3s ease; }
+        .a-name { font-size: .78rem; color: var(--muted); margin-top: .2rem; line-height: 1.3; }
+        @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+
+        /* ── Airport list ── */
+        .airport-list { border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden; }
+        .a-row {
+            display: flex; align-items: center; padding: .875rem 1rem; gap: .875rem;
+            border-bottom: 1px solid var(--border); cursor: pointer; min-height: 52px;
+            transition: background .1s; user-select: none; -webkit-tap-highlight-color: transparent;
+        }
+        .a-row:last-child  { border-bottom: none; }
+        .a-row:hover       { background: var(--purple-l); }
+        .a-row.selected    { background: var(--purple-l); }
+        .a-row.confirming  { background: var(--green-l); }
+        .a-row-name { font-size: .875rem; color: var(--text); flex: 1; }
+
+        /* ── Calendar ── */
+        .cal-month { margin-bottom: 2rem; }
+        .cal-month-name {
+            font-size: .95rem; font-weight: 700; color: var(--purple);
+            text-align: center; padding: .5rem 0 .75rem;
+        }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+        .cal-dow {
+            font-size: .68rem; font-weight: 700; text-align: center; color: var(--muted);
+            padding: .3rem 0; text-transform: uppercase;
+        }
+        .cal-day {
+            min-height: 40px; display: flex; align-items: center; justify-content: center;
+            font-size: .9rem; border-radius: 8px; transition: background .1s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .cal-day.past      { color: #c8cfe0; cursor: default; }
+        .cal-day.avail     { cursor: pointer; }
+        .cal-day.avail:hover { background: var(--purple-l); color: var(--purple); }
+        .cal-day.is-today  { font-weight: 700; color: var(--purple); border: 1.5px solid var(--purple-m); }
+        .cal-day.is-selected { background: var(--purple); color: white !important; font-weight: 700; border: none; }
+        .cal-day.is-confirming { background: var(--green) !important; color: white !important; animation: pop .3s ease; }
+
+        /* ── Context bar ── */
+        .ctx-bar {
+            background: #f8f7fc; border: 1.5px solid var(--border); border-radius: 8px;
+            padding: .625rem .875rem; font-size: .875rem; color: var(--muted); margin-bottom: .875rem;
+        }
+        .ctx-bar strong { color: var(--text); }
+
+        /* ── Flight picker ── */
+        .flight-section { margin-bottom: 1.25rem; }
+        .flight-list { border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: .625rem; }
+        .flight-row {
+            display: flex; align-items: center; padding: .75rem 1rem; gap: .875rem;
+            border-bottom: 1px solid var(--border); cursor: pointer; min-height: 58px;
+            transition: background .1s; user-select: none; -webkit-tap-highlight-color: transparent;
+        }
+        .flight-list > .flight-row:last-child,
+        .flight-list > div:last-child > .flight-row:last-child { border-bottom: none; }
+        .flight-row:hover       { background: var(--purple-l); }
+        .flight-row.selected    { background: var(--purple-l); }
+        .flight-row.confirming  { background: var(--green-l); }
+        .fr-main  { flex: 1; min-width: 0; }
+        .fr-top-line { display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; margin-bottom: .2rem; }
+        .fr-time  { font-size: 1.25rem; font-weight: 800; color: var(--purple); line-height: 1.1; flex-shrink: 0; }
+        .fr-codes-inline { font-size: .78rem; font-weight: 700; color: var(--muted); font-family: ui-monospace, monospace; align-self: center; }
+        .fr-dest-line { font-size: .875rem; font-weight: 700; color: var(--text); line-height: 1.35; }
+        .fr-meta-line { font-size: .75rem; color: var(--muted); margin-top: .15rem; }
+        /* ── Shimmer skeleton loader ── */
+        @keyframes shimmer {
+            0%   { background-position: -400px 0; }
+            100% { background-position:  400px 0; }
+        }
+        .sk-block {
+            border-radius: 4px;
+            background: linear-gradient(90deg, #ede9f5 25%, #f5f3fa 50%, #ede9f5 75%);
+            background-size: 800px 100%;
+            animation: shimmer 1.4s infinite linear;
+        }
+        .flight-row.sk-row { cursor: default; pointer-events: none; }
+        .flight-row.sk-row:hover { background: transparent; }
+        .sk-row .fr-top-line { display: flex; align-items: center; gap: .5rem; margin-bottom: .35rem; }
+        .sk-row .fr-time-sk  { width: 3rem;   height: .9rem; }
+        .sk-row .fr-codes-sk { width: 4.5rem; height: .65rem; }
+        .sk-row .fr-dest-sk  { width: 70%;    height: .8rem;  margin-bottom: .3rem; }
+        .sk-row .fr-meta-sk  { width: 50%;    height: .65rem; }
+        .sk-row .fr-tail-sk  { width: 44px;   height: 44px;   border-radius: 6px; flex-shrink: 0; }
+        .flight-row.sk-row:nth-child(1) .sk-block { animation-delay: 0s; }
+        .flight-row.sk-row:nth-child(2) .sk-block { animation-delay: .15s; }
+        .flight-row.sk-row:nth-child(3) .sk-block { animation-delay: .3s; }
+        .flight-row.sk-row:nth-child(4) .sk-block { animation-delay: .45s; }
+        /* Section headers inside flight-list */
+        .flt-sec-hdr {
+            padding: .3rem 1rem; font-size: .75rem; font-weight: 700; letter-spacing: .05em;
+            text-transform: uppercase; color: var(--muted); background: #f7f6fb;
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center;
+        }
+        .flt-sec-hdr:not(:first-child) { border-top: 1px solid var(--border); }
+        .flt-sec-hdr-clear {
+            margin-left: auto; font-size: .75rem; font-weight: 600; color: var(--purple);
+            background: none; border: none; cursor: pointer; padding: 0;
+            text-transform: none; letter-spacing: 0;
+        }
+        .fr-recent-remove {
+            background: none; border: none; cursor: pointer; padding: .25rem .5rem;
+            font-size: 1rem; color: var(--muted); line-height: 1; flex-shrink: 0;
+            margin-left: .25rem;
+        }
+        .fr-recent-remove:hover { color: var(--text); }
+        /* ── Flight search bar ── */
+        .flt-search-wrap {
+            display: none; align-items: center; margin-bottom: .75rem;
+            border: 1.5px solid var(--purple); border-radius: 10px;
+            background: #fff; overflow: hidden;
+        }
+        .flt-search-wrap.visible {
+            display: flex;
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 2px 8px rgba(0,0,0,.10);
+        }
+        .flt-search-inp {
+            flex: 1; border: none; outline: none; padding: .625rem .875rem;
+            font-size: 1rem; font-family: inherit; background: transparent; color: var(--text);
+            min-width: 0;
+        }
+        .flt-search-count {
+            font-size: .875rem; font-weight: 600; color: var(--purple);
+            padding: 0 .4rem; white-space: nowrap; flex-shrink: 0;
+        }
+        .flt-search-clear {
+            background: none; border: none; cursor: pointer; padding: .4rem .6rem;
+            font-size: 1.1rem; color: var(--muted); line-height: 1; flex-shrink: 0;
+        }
+        .flt-search-clear:hover { color: var(--text); }
+        mark.flt-hl { background: #fdd506; color: inherit; border-radius: 2px; padding: 0 1px; font-style: normal; }
+        /* ── Flight date strip ── */
+        .flt-date-strip { display: flex; gap: .5rem; margin-bottom: .625rem; padding: .25rem 0; }
+        .flt-date-btn {
+            flex: 0 0 auto; padding: .55rem .875rem; border: 1.5px solid var(--border);
+            border-radius: 8px; font-size: .875rem; font-weight: 600; text-align: center;
+            cursor: pointer; background: #fff; color: var(--muted); line-height: 1.3;
+            font-family: inherit;
+        }
+        .flt-date-btn.active { border-color: var(--purple); color: var(--purple); background: var(--purple-l); font-weight: 700; }
+        .flt-date-btn:hover:not(.active) { background: var(--purple-l); }
+        /* ── No results ── */
+        .flight-no-results { padding: .75rem 1rem; }
+        .fnr-msg { font-size: .9rem; color: var(--muted); margin-bottom: .5rem; }
+        .fnr-hint { font-size: .8rem; color: var(--muted); font-style: italic; line-height: 1.5; margin-bottom: .625rem; }
+        .fnr-opt {
+            padding: .625rem .875rem; font-size: .875rem; color: var(--purple);
+            cursor: pointer; border-radius: 8px;
+            margin-bottom: .375rem; display: flex; align-items: center; gap: .5rem;
+        }
+        .fnr-opt:hover { background: var(--purple-l); }
+        /* ── Tailfin image ── */
+        .fr-tail {
+            height: 44px; width: auto; flex-shrink: 0; object-fit: contain;
+            opacity: .92; margin-left: auto;
+        }
+
+        /* ── Manual time picker (fallback in step 3) ── */
+        .manual-time-wrap {
+            display: none; margin-top: 1rem; padding: 1rem;
+            border: 1.5px solid var(--border); border-radius: 10px; background: #f8f7fc;
+        }
+        .manual-time-wrap.visible { display: block; }
+        .manual-time-label {
+            font-size: .82rem; font-weight: 700; color: var(--muted); margin-bottom: .75rem;
+            text-transform: uppercase; letter-spacing: .06em;
+        }
+        .time-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .4rem; }
+        @media (max-width: 340px) { .time-grid { grid-template-columns: repeat(3, 1fr); } }
+        .time-pill {
+            border: 1.5px solid var(--border); border-radius: 8px; font-size: .85rem;
+            font-family: inherit; cursor: pointer; transition: all .12s; min-height: 44px;
+            display: flex; align-items: center; justify-content: center;
+            user-select: none; -webkit-tap-highlight-color: transparent; background: white;
+        }
+        .time-pill:hover      { border-color: var(--purple); background: var(--purple-l); }
+        .time-pill.tp-sel     { border-color: var(--purple); background: var(--purple); color: white; font-weight: 700; }
+        .time-pill.tp-confirm { border-color: var(--green); background: var(--green); color: white; animation: pop .3s ease; }
+
+        /* ── Passengers step ── */
+        .pax-section {
+            border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden;
+            margin-bottom: 1.25rem;
+        }
+        .pax-row {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1rem 1.125rem; border-bottom: 1px solid var(--border);
+        }
+        .pax-row:last-child { border-bottom: none; }
+        .pax-info {}
+        .pax-label { font-size: .95rem; font-weight: 700; color: var(--text); }
+        .pax-desc  { font-size: .8rem; color: var(--muted); margin-top: .15rem; }
+        .pax-ctrl  { display: flex; align-items: center; gap: .625rem; }
+        .pax-btn {
+            width: 36px; height: 36px; border-radius: 50%;
+            border: 2px solid var(--purple); background: white; color: var(--purple);
+            font-size: 1.1rem; font-family: inherit; font-weight: 700;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: background .12s, color .12s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .pax-btn:hover:not(:disabled) { background: var(--purple); color: white; }
+        .pax-btn:disabled { border-color: var(--border); color: var(--border); cursor: default; }
+        .pax-count {
+            font-size: 1.1rem; font-weight: 800; color: var(--text);
+            min-width: 1.5rem; text-align: center;
+        }
+        .pax-note {
+            font-size: .8rem; color: var(--muted); margin-bottom: 1.25rem;
+            padding: .625rem .875rem; background: #f8f7fc;
+            border: 1.5px solid var(--border); border-radius: 8px;
+        }
+
+        /* ── Review ── */
+        .review-row {
+            display: flex; align-items: flex-start; padding: .875rem 0;
+            border-bottom: 1px solid #f0f4f8; cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .review-row:last-child { border-bottom: none; }
+        .review-row:hover .rr-lbl { color: var(--purple); }
+        .rr-icon { font-size: 1rem; margin-right: .75rem; flex-shrink: 0; margin-top: .15rem; }
+        .rr-body { flex: 1; min-width: 0; overflow-wrap: break-word; word-break: break-word; }
+        .rr-lbl  { font-size: .82rem; color: var(--muted); display: flex; align-items: center; gap: .4rem; }
+        .rr-edit-link { font-size: .85rem; line-height: 1; }
+        .rr-val  { font-size: .95rem; font-weight: 600; color: var(--text); margin-top: .1rem; overflow-wrap: break-word; }
+        .rr-flight-note { font-size: .82rem; color: var(--muted); margin-top: .25rem; }
+        .lounge-window-box {
+            background: var(--purple-l); border: 1.5px solid var(--purple-m);
+            border-radius: 10px; padding: 1rem; margin-bottom: 1.25rem; text-align: center;
+        }
+        .lw-label  { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: .25rem; }
+        .lw-window { font-size: 1.5rem; font-weight: 800; color: var(--purple); }
+        .lw-sub    { font-size: .8rem; color: var(--muted); margin-top: .2rem; }
+        .confidence-box { background: var(--green-l); border: 1px solid #c6f6d5; border-radius: 9px; padding: .75rem 1rem; margin-top: .875rem; }
+        .confidence-box .cb-text { font-size: .82rem; color: var(--green-d); line-height: 1.5; display: block; }
+        .confidence-box .cb-text strong { font-weight: 700; color: var(--green-d); }
+        #step-5 .step-title { margin-bottom: 10px; }
+
+        /* ── CTA ── */
+        .srch-loading { display: none; text-align: center; padding: 1.25rem 0 .75rem; color: var(--muted); font-size: .9rem; }
+        .srch-loading.on { display: block; }
+        .spinner { width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--purple); border-radius: 50%; animation: spin .75s linear infinite; margin: 0 auto .5rem; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .btn-success {
+            display: flex; align-items: center; justify-content: center; width: 100%;
+            padding: .9rem 2rem; background: var(--green); color: white; border: none;
+            border-radius: 9px; font-size: 1.05rem; font-weight: 700; font-family: inherit;
+            cursor: pointer; transition: background .12s; -webkit-tap-highlight-color: transparent;
+        }
+        .btn-success:hover { background: var(--green-d); }
+    </style>
+    <script src="fuse.min.js" defer></script>
+</head>
+<body>
+
+<header>
+    <img src="logo.png" alt="Holiday Extras — Airport Lounges" class="header-logo" width="836" height="148">
+</header>
+
+<div class="hero-wrap" id="heroWrap">
+    <picture>
+        <source type="image/webp" srcset="get-holiday-ready-824.webp 824w, get-holiday-ready.webp 1200w" sizes="100vw">
+        <img src="get-holiday-ready.jpg" alt="" loading="eager" fetchpriority="high" width="1200" height="341">
+    </picture>
+</div>
+
+<main class="container">
+
+    <!-- Step 1: Airport -->
+    <section class="step active" id="step-1">
+        <h2 class="step-title">Flying from</h2>
+        <div id="recentSection" class="recents-section" style="display:none">
+            <p class="sec-lbl">Recent</p>
+            <div class="recent-chips" id="recentChips"></div>
+        </div>
+        <button class="location-btn" id="gpsBigBtn" onclick="requestLocation()">
+            📍 Make more accurate with GPS
+        </button>
+        <div class="nearest-row">
+            <p class="sec-lbl">Nearest airports</p>
+            <span class="gps-link" id="gpsSmallLink" style="display:none"></span>
+        </div>
+        <div class="airport-grid" id="popularGrid" role="list" aria-label="Nearest airports"></div>
+        <p class="sec-lbl" style="margin-top:.5rem">All airports</p>
+        <div class="airport-list" id="allList" role="list" aria-label="All airports"></div>
+    </section>
+
+    <!-- Step 2: Departure date -->
+    <section class="step" id="step-2">
+        <h2 class="step-title">When are you flying?</h2>
+        <div id="dateCalBody"></div>
+    </section>
+
+    <!-- Step 3: Flight picker -->
+    <section class="step" id="step-3">
+        <h2 class="step-title">Your outbound flight</h2>
+        <div class="flight-section">
+            <div class="flt-date-strip" id="flightDateStrip"></div>
+            <div class="flt-search-wrap" id="flightSearchWrap">
+                <input type="text" id="flightSearchInp" class="flt-search-inp" placeholder="Search destination, time or airline…" autocomplete="off" oninput="filterFlights()">
+                <span class="flt-search-count" id="flightSearchCount"></span>
+                <button class="flt-search-clear" id="flightSearchClear" onclick="clearFlightSearch()" aria-label="Clear search" style="display:none">✕</button>
+            </div>
+            <div id="flightList" role="listbox"></div>
+        </div>
+        <!-- Manual time fallback — only shown when no results -->
+        <div class="manual-time-wrap" id="manualTimeWrap">
+            <div class="manual-time-label">Enter your departure time instead</div>
+            <div class="time-grid" id="manualTimeGrid"></div>
+        </div>
+    </section>
+
+    <!-- Step 4: Passengers -->
+    <section class="step" id="step-4">
+        <h2 class="step-title">Who's visiting the lounge?</h2>
+        <div class="ctx-bar" id="paxCtx"></div>
+        <div class="pax-section">
+            <div class="pax-row">
+                <div class="pax-info">
+                    <div class="pax-label">Adults</div>
+                    <div class="pax-desc">12 years and over</div>
+                </div>
+                <div class="pax-ctrl">
+                    <button class="pax-btn" id="adultsDown" onclick="adjustPax('adults',-1)" aria-label="Remove adult">−</button>
+                    <span class="pax-count" id="adultsCount">2</span>
+                    <button class="pax-btn" id="adultsUp"   onclick="adjustPax('adults', 1)" aria-label="Add adult">+</button>
+                </div>
+            </div>
+            <div class="pax-row">
+                <div class="pax-info">
+                    <div class="pax-label">Children</div>
+                    <div class="pax-desc">2–11 years</div>
+                </div>
+                <div class="pax-ctrl">
+                    <button class="pax-btn" id="childrenDown" onclick="adjustPax('children',-1)" aria-label="Remove child">−</button>
+                    <span class="pax-count" id="childrenCount">0</span>
+                    <button class="pax-btn" id="childrenUp"   onclick="adjustPax('children', 1)" aria-label="Add child">+</button>
+                </div>
+            </div>
+            <div class="pax-row">
+                <div class="pax-info">
+                    <div class="pax-label">Infants</div>
+                    <div class="pax-desc">Under 2 years</div>
+                </div>
+                <div class="pax-ctrl">
+                    <button class="pax-btn" id="infantsDown" onclick="adjustPax('infants',-1)" aria-label="Remove infant">−</button>
+                    <span class="pax-count" id="infantsCount">0</span>
+                    <button class="pax-btn" id="infantsUp"   onclick="adjustPax('infants', 1)" aria-label="Add infant">+</button>
+                </div>
+            </div>
+        </div>
+        <p class="pax-note">Most lounges charge for children. Infants are usually free — confirm at checkout.</p>
+        <button class="btn-success" onclick="onPaxDone()">Continue →</button>
+    </section>
+
+    <!-- Step 5: Review & search -->
+    <section class="step" id="step-5">
+        <h2 class="step-title">Your lounge search</h2>
+        <div id="loungeWindowCard"></div>
+        <div id="reviewRows"></div>
+        <div style="margin-top:1.25rem">
+            <div class="srch-loading" id="srchLoading" aria-live="polite">
+                <div class="spinner" role="status" aria-label="Finding lounges"></div>
+                <p>Finding available lounges&hellip;</p>
+            </div>
+            <button class="btn-success" id="searchBtn" onclick="submitSearch()">Show lounges and prices</button>
+        </div>
+        <div class="confidence-box" style="margin-top:1rem">
+            <span class="cb-text"><strong>Book with confidence.</strong> Choose <strong>Flextras</strong> at checkout for free cancellation — change your plans without changing your wallet.</span>
+        </div>
+    </section>
+
+</main>
+
+<script>
+const POPULAR = [
+{ code:'LHR', short:'Heathrow',              full:'London Heathrow Airport',               lat:51.4706, lon:-0.4619 },
+{ code:'LGW', short:'Gatwick',               full:'London Gatwick Airport',                lat:51.1537, lon:-0.1821 },
+{ code:'MAN', short:'Manchester',            full:'Manchester Airport',                    lat:53.3537, lon:-2.2750 },
+{ code:'STN', short:'Stansted',              full:'London Stansted Airport',               lat:51.8850, lon: 0.2350 },
+{ code:'LTN', short:'Luton',                 full:'London Luton Airport',                  lat:51.8747, lon:-0.3683 },
+{ code:'BHX', short:'Birmingham',            full:'Birmingham Airport',                    lat:52.4539, lon:-1.7480 },
+{ code:'EDI', short:'Edinburgh',             full:'Edinburgh Airport',                     lat:55.9500, lon:-3.3725 },
+{ code:'GLA', short:'Glasgow International', full:'Glasgow International Airport',         lat:55.8719, lon:-4.4330 },
+];
+const OTHERS = [
+{ code:'ABZ', short:'Aberdeen',              full:'Aberdeen Airport',                      lat:57.2019, lon:-2.1978 },
+{ code:'BHD', short:'Belfast City',          full:'Belfast City Airport (George Best)',    lat:54.6175, lon:-5.8725 },
+{ code:'BFS', short:'Belfast International', full:'Belfast International Airport',         lat:54.6575, lon:-6.2158 },
+{ code:'BOH', short:'Bournemouth',           full:'Bournemouth Airport',                   lat:50.7800, lon:-1.8425 },
+{ code:'BRS', short:'Bristol',               full:'Bristol Airport',                       lat:51.3827, lon:-2.7191 },
+{ code:'CWL', short:'Cardiff',               full:'Cardiff Airport',                       lat:51.3967, lon:-3.3433 },
+{ code:'DUB', short:'Dublin',                full:'Dublin Airport',                        lat:53.4213, lon:-6.2701 },
+{ code:'EMA', short:'East Midlands',         full:'East Midlands Airport',                 lat:52.8311, lon:-1.3281 },
+{ code:'EXT', short:'Exeter',                full:'Exeter Airport',                        lat:50.7344, lon:-3.4139 },
+{ code:'PIK', short:'Glasgow Prestwick',     full:'Glasgow Prestwick Airport',             lat:55.5094, lon:-4.5869 },
+{ code:'LBA', short:'Leeds Bradford',        full:'Leeds Bradford Airport',                lat:53.8659, lon:-1.6606 },
+{ code:'LPL', short:'Liverpool',             full:'Liverpool John Lennon Airport',         lat:53.3336, lon:-2.8497 },
+{ code:'LCY', short:'London City',           full:'London City Airport',                   lat:51.5048, lon:-0.0495 },
+{ code:'NCL', short:'Newcastle',             full:'Newcastle Airport',                     lat:55.0375, lon:-1.6917 },
+{ code:'NQY', short:'Newquay Cornwall',      full:'Newquay Cornwall Airport',              lat:50.4406, lon:-4.9955 },
+{ code:'NWI', short:'Norwich',               full:'Norwich Airport',                       lat:52.6758, lon: 1.2828 },
+{ code:'SNN', short:'Shannon',               full:'Shannon Airport',                       lat:52.7020, lon:-8.9248 },
+{ code:'SOU', short:'Southampton',           full:'Southampton Airport',                   lat:50.9503, lon:-1.3569 },
+{ code:'SEN', short:'Southend',              full:'London Southend Airport',               lat:51.5714, lon: 0.6956 },
+{ code:'INV', short:'Inverness',             full:'Inverness Airport',                     lat:57.5425, lon:-4.0475 },
+{ code:'MME', short:'Teesside International',full:'Teesside International Airport',        lat:54.5092, lon:-1.4294 },
+];
+const ALL = POPULAR.concat(OTHERS);
+
+const DEST_ALIASES = {
+'benidorm':'alicante','costa blanca':'alicante','magaluf':'palma','alcudia':'palma',
+'mallorca':'palma','majorca':'palma','zante':'zakynthos','laganas':'zakynthos',
+'kavos':'corfu','sidari':'corfu','malia':'heraklion','hersonissos':'heraklion',
+'crete':'heraklion','gran canaria':'las palmas','tenerife south':'tenerife','preveza':'aktion',
+};
+const AIRLINE_ALIASES = {
+'ezy':'easyjet','ejs':'easyjet','ryr':'ryanair','fr':'ryanair','baw':'british airways',
+'vir':'virgin atlantic','vs':'virgin atlantic','thy':'turkish airlines','dlh':'lufthansa',
+'afr':'air france','klm':'klm','vle':'vueling','jet2':'jet2.com','tom':'tui','tfl':'tui',
+'tcx':'tui','tui':'tui','wiz':'wizz air','wzz':'wizz air','nax':'norwegian','aee':'aegean',
+};
+
+const _flightCache     = new Map();
+const _flightDataCache = new Map();
+
+function fetchFlights(airportCode, date) {
+    const dateStr = fmtISO(date);
+    const key = airportCode + ':' + dateStr + ':out';
+    if (_flightCache.has(key)) return _flightCache.get(key);
+    const params = new URLSearchParams({ location: airportCode, date: dateStr });
+    const p = fetch(_API + '/api/flights?' + params)
+        .then(r => r.ok ? r.json() : Promise.reject(r.status))
+        .then(raw => normaliseFlights(raw, dateStr))
+        .then(flights => { _flightDataCache.set(key, flights); return flights; })
+        .catch(e => { console.warn('[flights] fetch failed', e); return []; });
+    _flightCache.set(key, p);
+    return p;
+}
+
+function normaliseFlights(raw, dateStr) {
+    if (!Array.isArray(raw)) return [];
+    const refToCarrier = {};
+    raw.forEach(e => {
+        if (e.flight?.reference && e.flight?.carrier?.name)
+            refToCarrier[e.flight.reference] = e.flight.carrier.name;
+    });
+    return raw.map(e => {
+        const dep = e.departure || {};
+        const arr = e.arrival   || {};
+        const operatedBy = e.info?.is_codeshare && e.info?.codeshare_operator_reference
+            ? refToCarrier[e.info.codeshare_operator_reference] || '' : '';
+        const timeStr = dep.time || '00:00';
+        const [tH, tM] = timeStr.split(':');
+        return {
+            code:        e.flight?.code || '',
+            reference:   e.flight?.reference || '',
+            airline:     e.flight?.carrier?.name || e.flight?.carrier?.code || '',
+            airlineCode: e.flight?.carrier?.code || '',
+            carrierIcao: e.flight?.carrier?.icao || '',
+            flightIcao:  (e.flight?.icao || []).join(' '),
+            matched:     e.flight?.matched || '',
+            typeahead:   e.typeahead || '',
+            dest:        arr.airport || arr.city || '',
+            destCity:    arr.city || '',
+            destCountry: arr.country || '',
+            destAirport: arr.airport_iata || '',
+            hour:        parseInt(tH, 10) || 0,
+            minute:      parseInt(tM, 10) || 0,
+            terminal:    dep.terminal || '',
+            isCodeshare: !!e.info?.is_codeshare,
+            operatedBy,
+            tailfin:     e.flight?.carrier?.tailfinImage || e.flight?.carrier?.tail_image || '',
+            departureDate: dateStr,
+            _raw: e,
+        };
+    }).sort((a, b) => a.hour !== b.hour ? a.hour - b.hour : a.minute - b.minute);
+}
+
+// ─── API base path ─────────────────────────────────────────────────────────────
+const _API = (window._basePath || '');
+
+// ─── State ─────────────────────────────────────────────────────────────────────
+const state = {
+    airport:       null,
+    departureDate: null,
+    flight:        null,   // { code, hour, minute, terminal, ... } or { isManual:true, hour, minute }
+    adults:        2,
+    children:      0,
+    infants:       0,
+};
+let currentStep = 1;
+
+// ─── Helpers ───────────────────────────────────────────────────────────────────
+const DAYS      = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const FULL_DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONTHS    = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const SMON      = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function today()       { const d=new Date(); d.setHours(0,0,0,0); return d; }
+function fmtISO(d)     { return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate()); }
+function parseISO(s)   { const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d); }
+function fmtDisplay(d) { return DAYS[d.getDay()]+' '+d.getDate()+' '+SMON[d.getMonth()]+' '+d.getFullYear(); }
+function fmtShort(d)   { return DAYS[d.getDay()]+' '+d.getDate()+' '+SMON[d.getMonth()]; }
+function fmtNatural(d) { const n=d.getDate(),s=(n>=11&&n<=13)?'th':(['th','st','nd','rd'][n%10]||'th'); return FULL_DAYS[d.getDay()]+' '+n+s+' '+MONTHS[d.getMonth()]+' '+d.getFullYear(); }
+function fmtHHMM(h, m) { return pad2(h)+':'+pad2(m); }
+function pad2(n)       { return String(n).padStart(2,'0'); }
+function fmtTerminal(t){ if(!t) return ''; if(t==='N') return 'North Terminal'; if(t==='S') return 'South Terminal'; return 'Terminal '+t; }
+function esc(s)        { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// loungeFrom = flight dep time − 3 h (earliest slot that covers both 2h and 3h options).
+// Clamped to 00:00 for very early flights.
+function computeLoungeFrom(depHour, depMinute) {
+    const totalMins = Math.max(0, depHour * 60 + depMinute - 180);
+    return fmtHHMM(Math.floor(totalMins / 60), totalMins % 60);
+}
+
+// ─── Tracking ──────────────────────────────────────────────────────────────────
+function track(name, value) {
+    const v = value !== undefined ? String(value) : '';
+    console.log('[track]', name, v || '(click)');
+    if (typeof tracker !== 'undefined' && typeof tracker.inline === 'function')
+        tracker.inline('click', { name, value: v });
+}
+function trackPage(stageNum, stageName) {
+    const pageType = 'stage' + stageNum + '-' + stageName;
+    console.log('[track:page]', 'lounge-wizard', pageType);
+    if (typeof tracker !== 'undefined' && typeof tracker.page === 'function')
+        tracker.page('lounge-wizard', { page_type: pageType });
+}
+
+// ─── Navigation ────────────────────────────────────────────────────────────────
+const STEP_HASHES = ['','flying-from','departure-date','your-flight','passengers','search'];
+const STEP_TITLES = ['','Flying from','Departure date','Your flight','Passengers','Search'];
+
+function goToStep(n, fromHistory) {
+    document.getElementById('step-' + currentStep).classList.remove('active');
+    currentStep = n;
+    document.getElementById('step-' + n).classList.add('active');
+
+    if (!fromHistory) history.pushState({ step: n }, '', '#' + STEP_HASHES[n]);
+    document.title = STEP_TITLES[n] + ' — Airport Lounges | Holiday Extras';
+
+    window.scrollTo({ top: 0, behavior: 'instant' });
+
+    const hero = document.getElementById('heroWrap');
+    if (hero) hero.classList.toggle('hidden', n !== 1);
+
+    if (n === 1) renderRecents();
+    if (n === 2) setupDate();
+    if (n === 3) setupFlight();
+    if (n === 4) setupPassengers();
+    if (n === 5) buildReview();
+
+    trackPage(n, STEP_HASHES[n]);
+}
+
+window.addEventListener('popstate', e => {
+    const n = (e.state && e.state.step) || 1;
+    if (n !== currentStep) goToStep(n, true);
+});
+
+// ─── Favourites (recent airports + flights) ────────────────────────────────────
+const Favourites = {
+    _key: 'hx_lw_recents',
+    read() { try { return JSON.parse(localStorage.getItem(this._key) || '[]'); } catch(e) { return []; } },
+    write(items) { try { localStorage.setItem(this._key, JSON.stringify(items.slice(0, 10))); } catch(e) {} },
+    pushAirport(airport) {
+        const existing = this.read().find(r => r.airport.code === airport.code);
+        const entry = existing ? { ...existing, airport, ts: Date.now() } : { airport, flights: [], ts: Date.now() };
+        this.write([entry, ...this.read().filter(r => r.airport.code !== airport.code)].slice(0, 5));
+    },
+    removeAirport(code) { this.write(this.read().filter(r => r.airport.code !== code)); },
+    airports() { return this.read().map(r => r.airport); },
+    pushFlight(airportCode, flight) {
+        const items = this.read();
+        const rec = items.find(r => r.airport.code === airportCode);
+        if (!rec) return;
+        const slim = { code: flight.code, airline: flight.airline, dest: flight.dest,
+                       destAirport: flight.destAirport, hour: flight.hour, minute: flight.minute,
+                       terminal: flight.terminal, tailfin: flight.tailfin };
+        rec.flights = [slim, ...(rec.flights||[]).filter(f => f.code !== flight.code)].slice(0, 5);
+        this.write(items);
+    },
+    flights(airportCode) {
+        const rec = this.read().find(r => r.airport.code === airportCode);
+        return rec?.flights || [];
+    },
+    removeFlight(airportCode, flightCode) {
+        const items = this.read();
+        const rec = items.find(r => r.airport.code === airportCode);
+        if (!rec) return;
+        rec.flights = (rec.flights || []).filter(f => f.code !== flightCode);
+        this.write(items);
+    },
+    clearFlights(airportCode) {
+        const items = this.read();
+        const rec = items.find(r => r.airport.code === airportCode);
+        if (!rec) return;
+        rec.flights = [];
+        this.write(items);
+    },
+};
+
+function renderRecents() {
+    const airports = Favourites.airports();
+    const section  = document.getElementById('recentSection');
+    if (!section) return;
+    if (!airports.length) { section.style.display = 'none'; return; }
+    section.style.display = '';
+    document.getElementById('recentChips').innerHTML = airports.map(a =>
+        `<div class="recent-chip">
+            <button type="button" class="rc-btn" onclick="pickAirport('${a.code}')">
+                <span class="rc-name" style="font-weight:700">${esc(a.short)}</span>
+            </button>
+            <button type="button" class="rc-x" aria-label="Remove ${esc(a.short)}"
+                    onclick="event.stopPropagation();removeRecent('${a.code}')">✕</button>
+         </div>`
+    ).join('');
+}
+function removeRecent(code) {
+    Favourites.removeAirport(code);
+    renderRecents();
+    track('lounge-wizard-stage1-recent-removed', code);
+}
+
+// ─── Step 1: Airport ──────────────────────────────────────────────────────────
+function renderPopular(list) {
+    document.getElementById('popularGrid').innerHTML = list.map(a =>
+        `<div class="a-tile" id="tile-${a.code}" role="listitem" tabindex="0"
+              aria-label="${esc(a.short)}"
+              onclick="pickAirport('${a.code}')"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();pickAirport('${a.code}');}">
+            <div class="a-name" style="font-size:.85rem;font-weight:700;color:var(--text)">${esc(a.short)}</div>
+         </div>`).join('');
+}
+function renderAllList(list) {
+    document.getElementById('allList').innerHTML = list.map(a =>
+        `<div class="a-row" id="row-${a.code}" role="listitem" tabindex="0"
+              aria-label="${esc(a.short)}"
+              onclick="pickAirport('${a.code}')"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();pickAirport('${a.code}');}">
+            <span class="a-row-name">${esc(a.short)}</span>
+         </div>`).join('');
+}
+function pickAirport(code) {
+    const airport = ALL.find(a => a.code === code);
+    if (!airport) return;
+    state.airport = airport;
+    state.flight  = null;
+    track('lounge-wizard-stage1-airport', code);
+    Favourites.pushAirport(airport);
+    document.querySelectorAll('.a-tile, .a-row').forEach(el => el.classList.remove('selected','confirming'));
+    const el = document.getElementById('tile-' + code) || document.getElementById('row-' + code);
+    if (el) { el.classList.add('selected'); goToStep(2); }
+}
+
+// ─── Location ──────────────────────────────────────────────────────────────────
+function applyLocation(lat, lon, label) {
+    const sorted = ALL.slice().sort((a,b) => haversine(lat,lon,a.lat,a.lon) - haversine(lat,lon,b.lat,b.lon));
+    renderPopular(sorted.slice(0,4));
+    renderAllList(sorted.slice(4));
+    track('lounge-wizard-stage1-location-used', label);
+}
+function fmtCoords(lat, lon) {
+    return Math.abs(lat).toFixed(4)+'°'+(lat>=0?'N':'S')+' '+Math.abs(lon).toFixed(4)+'°'+(lon>=0?'E':'W');
+}
+function gpsGranted(lat, lon) {
+    localStorage.setItem('gps_granted', '1');
+    const bigBtn = document.getElementById('gpsBigBtn');
+    const smallLink = document.getElementById('gpsSmallLink');
+    if (bigBtn) { bigBtn.style.opacity='0'; setTimeout(()=>{ bigBtn.style.display='none'; },300); }
+    if (smallLink) { smallLink.textContent='✓ GPS · '+fmtCoords(lat,lon); smallLink.style.display=''; }
+}
+function gpsLookupSilent() {
+    if (!navigator.geolocation) return;
+    const bigBtn = document.getElementById('gpsBigBtn');
+    if (bigBtn) bigBtn.style.display = 'none';
+    function _applyPos(pos) {
+        const lat=pos.coords.latitude, lon=pos.coords.longitude;
+        applyLocation(lat, lon, 'GPS (±'+Math.round(pos.coords.accuracy)+'m)');
+        gpsGranted(lat, lon);
+    }
+    function _onFail(err) {
+        if (err.code===1) {
+            const b=document.getElementById('gpsBigBtn');
+            if(b){b.innerHTML='⚠ GPS blocked · check your browser settings';b.style.display='';}
+            localStorage.removeItem('gps_granted');
+        } else if (!localStorage.getItem('gps_granted')) {
+            const b=document.getElementById('gpsBigBtn');
+            if(b) b.style.display='';
+        }
+    }
+    navigator.geolocation.getCurrentPosition(_applyPos, err => {
+        if (err.code===2) {
+            navigator.geolocation.getCurrentPosition(_applyPos, _onFail,
+                {enableHighAccuracy:false, maximumAge:300000, timeout:10000});
+        } else { _onFail(err); }
+    }, {enableHighAccuracy:true, maximumAge:300000, timeout:10000});
+}
+function ipLocationLookup() {
+    const CACHE_KEY='ip_loc', CACHE_TTL=86400000;
+    try {
+        const cached=JSON.parse(localStorage.getItem(CACHE_KEY)||'null');
+        if(cached&&cached.expires>Date.now()){applyLocation(cached.lat,cached.lon,cached.label);return;}
+    } catch(e){}
+    fetch('https://ipapi.co/json/')
+        .then(r=>r.json())
+        .then(d=>{
+            if(d.latitude&&d.longitude){
+                const label='IP ('+(d.city||'?')+')';
+                applyLocation(d.latitude,d.longitude,label);
+                try{localStorage.setItem(CACHE_KEY,JSON.stringify({lat:d.latitude,lon:d.longitude,label,expires:Date.now()+CACHE_TTL}));}catch(e){}
+            }
+        }).catch(e=>console.warn('[location] IP lookup failed:',e));
+}
+function requestLocation() {
+    const bigBtn = document.getElementById('gpsBigBtn');
+    if (!navigator.geolocation) {
+        if (bigBtn) { bigBtn.textContent='GPS not available on this device'; bigBtn.disabled=true; }
+        return;
+    }
+    if (bigBtn) { bigBtn.innerHTML='📍 Getting your location…'; bigBtn.disabled=true; }
+    navigator.geolocation.getCurrentPosition(
+        pos => {
+            const lat=pos.coords.latitude,lon=pos.coords.longitude;
+            applyLocation(lat,lon,'GPS (±'+Math.round(pos.coords.accuracy)+'m)');
+            gpsGranted(lat,lon);
+        },
+        err => {
+            if(bigBtn){
+                bigBtn.innerHTML=err.code===1
+                    ?'⚠ GPS blocked · check your browser settings'
+                    :'📍 Could not get GPS · tap to try again';
+                bigBtn.disabled=false;
+            }
+        },
+        {enableHighAccuracy:true, maximumAge:60000, timeout:30000}
+    );
+}
+function haversine(lat1,lon1,lat2,lon2) {
+    const R=6371,dl=(lat2-lat1)*Math.PI/180,dg=(lon2-lon1)*Math.PI/180;
+    const a=Math.sin(dl/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dg/2)**2;
+    return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+
+// ─── Calendar ──────────────────────────────────────────────────────────────────
+function renderCalendar(containerId, minDate, maxDays, selectedDate, onPickFn) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const min   = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+    const maxDt = new Date(min.getFullYear(), min.getMonth(), min.getDate() + maxDays - 1);
+    let html = '', cur = new Date(min.getFullYear(), min.getMonth(), 1);
+    while (cur <= maxDt) {
+        const yr=cur.getFullYear(), mo=cur.getMonth();
+        const daysInMonth=new Date(yr,mo+1,0).getDate();
+        const offset=(new Date(yr,mo,1).getDay()+6)%7;
+        const cells=[];
+        for(let i=0;i<offset;i++) cells.push({type:'blank'});
+        for(let day=1;day<=daysInMonth;day++){
+            const date=new Date(yr,mo,day);
+            if(date>maxDt)                        cells.push({type:'blank'});
+            else if(date.getTime()<min.getTime()) cells.push({type:'blank'});
+            else                                  cells.push({type:'avail',date,day});
+        }
+        while(cells.length%7!==0) cells.push({type:'blank'});
+        if(cells.every(c=>c.type==='blank')){cur=new Date(yr,mo+1,1);continue;}
+        html+=`<div class="cal-month"><div class="cal-month-name">${MONTHS[mo]} ${yr}</div><div class="cal-grid">`;
+        for(const d of ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'])
+            html+=`<div class="cal-dow">${d}</div>`;
+        for(let w=0;w<cells.length;w+=7){
+            const week=cells.slice(w,w+7);
+            if(week.every(c=>c.type==='blank')) continue;
+            for(const c of week){
+                if(c.type==='blank'){ html+=`<div class="cal-day"></div>`; }
+                else {
+                    const ds=fmtISO(c.date);
+                    const isSel=selectedDate&&c.date.getTime()===selectedDate.getTime();
+                    const isTod=c.date.getTime()===today().getTime();
+                    let cls='cal-day avail';
+                    if(isTod) cls+=' is-today';
+                    if(isSel) cls+=' is-selected';
+                    html+=`<div class="${cls}" data-date="${ds}" tabindex="0"
+                                onclick="${onPickFn}('${ds}')"
+                                onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();${onPickFn}('${ds}');}">${c.day}</div>`;
+                }
+            }
+        }
+        html+=`</div></div>`;
+        cur=new Date(yr,mo+1,1);
+    }
+    container.innerHTML = html;
+    if (selectedDate) {
+        const sel=container.querySelector('.is-selected');
+        if(sel) setTimeout(()=>sel.scrollIntoView({block:'center',behavior:'smooth'}),50);
+    }
+}
+
+// ─── Step 2: Departure date ───────────────────────────────────────────────────
+function setupDate() {
+    renderCalendar('dateCalBody', today(), 365, state.departureDate, 'pickDate');
+}
+function pickDate(dateStr) {
+    const cell = document.querySelector('#dateCalBody [data-date="'+dateStr+'"]');
+    if (cell) cell.classList.add('is-confirming');
+    setTimeout(() => {
+        const d = parseISO(dateStr);
+        state.departureDate = d;
+        state.flight = null;
+        track('lounge-wizard-stage2-date', dateStr);
+        renderCalendar('dateCalBody', today(), 365, d, 'pickDate');
+        goToStep(3);
+    }, 280);
+}
+
+// ─── Step 3: Flight picker ────────────────────────────────────────────────────
+let _viewDate = null;
+
+function setupFlight() {
+    if (!state.airport || !state.departureDate) return;
+    document.getElementById('flightSearchWrap').classList.remove('visible');
+    document.getElementById('manualTimeWrap').classList.remove('visible');
+    _viewDate = state.flight?.departureDate ? parseISO(state.flight.departureDate) : state.departureDate;
+    _renderFlightDateStrip();
+    _loadFlights(_viewDate);
+    // Pre-warm next day
+    const d1 = new Date(state.departureDate.getFullYear(), state.departureDate.getMonth(), state.departureDate.getDate() + 1);
+    fetchFlights(state.airport.code, d1);
+}
+
+function _renderFlightDateStrip() {
+    const strip = document.getElementById('flightDateStrip');
+    const base  = state.departureDate;
+    strip.innerHTML = [0, 1].map(offset => {
+        const d  = new Date(base.getFullYear(), base.getMonth(), base.getDate() + offset);
+        const ds = fmtISO(d);
+        const active = fmtISO(_viewDate) === ds;
+        return `<button class="flt-date-btn${active?' active':''}" onclick="switchFlightDate('${ds}')">${fmtShort(d)}</button>`;
+    }).join('');
+}
+
+function switchFlightDate(dateStr) {
+    _viewDate = parseISO(dateStr);
+    _renderFlightDateStrip();
+    _loadFlights(_viewDate);
+}
+
+function _flightSkeletonRows() {
+    const row=`<div class="flight-row sk-row">
+        <div class="fr-main">
+            <div class="fr-top-line"><div class="fr-time-sk sk-block"></div><div class="fr-codes-sk sk-block"></div></div>
+            <div class="fr-dest-sk sk-block"></div>
+            <div class="fr-meta-sk sk-block"></div>
+        </div>
+        <div class="fr-tail-sk sk-block"></div>
+    </div>`;
+    return row.repeat(4);
+}
+
+function _loadFlights(date) {
+    const container = document.getElementById('flightList');
+    container.innerHTML = `<div class="flight-list" aria-hidden="true">${_flightSkeletonRows()}</div>`;
+    document.getElementById('flightSearchWrap').classList.remove('visible');
+    document.getElementById('manualTimeWrap').classList.remove('visible');
+    const savedQuery = document.getElementById('flightSearchInp')?.value || '';
+    fetchFlights(state.airport.code, date).then(flights => {
+        renderFlightList(flights);
+        if (savedQuery) {
+            const inp = document.getElementById('flightSearchInp');
+            if (inp) { inp.value = savedQuery; filterFlights(); }
+        }
+    });
+}
+
+// ─── Flight list rendering ────────────────────────────────────────────────────
+function _buildFuseIndex(flights) {
+    return new Fuse(flights, {
+        keys: [
+            { name: 'dest',        weight: 3 },
+            { name: 'destAirport', weight: 2 },
+            { name: 'destCountry', weight: 2 },
+            { name: 'airline',     weight: 2 },
+            { name: 'airlineCode', weight: 1.5 },
+            { name: 'code',        weight: 1.5 },
+            { name: 'carrierIcao', weight: 2 },
+            { name: 'flightIcao',  weight: 2 },
+            { name: 'matched',     weight: 1.5 },
+            { name: 'typeahead',   weight: 1 },
+            { name: 'operatedBy',  weight: 1 },
+            { name: 'terminal',    weight: 0.5 },
+        ],
+        threshold: 0.0, ignoreLocation: true, shouldSort: false,
+        minMatchCharLength: 1, isCaseSensitive: false,
+    });
+}
+
+function _groupCodeshares(subset, allFlights) {
+    const groups=[], covered=new Set();
+    const _key=f=>f.code+'|'+(f.departureDate||'');
+    for(const f of subset){
+        if(covered.has(_key(f))) continue;
+        const siblings=subset.filter(s=>s!==f&&!covered.has(_key(s))&&
+            s.hour===f.hour&&s.minute===f.minute&&s.departureDate===f.departureDate&&
+            s.destAirport===f.destAirport);
+        siblings.forEach(s=>covered.add(_key(s)));
+        covered.add(_key(f));
+        const all=[f,...siblings];
+        const primary=all.find(s=>!s.isCodeshare)||f;
+        const allCodes=[...new Set(all.map(s=>s.code))];
+        groups.push({primary,allCodes,idx:allFlights.indexOf(primary)});
+    }
+    return groups;
+}
+
+function _highlight(text, words) {
+    if (!words||!words.length||!text) return esc(text||'');
+    let result=esc(text);
+    for(const w of words){
+        if(!w||w.length<2) continue;
+        const re=new RegExp(w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
+        result=result.replace(re,m=>`<mark class="flt-hl">${m}</mark>`);
+    }
+    return result;
+}
+
+const _flightListEl = () => document.getElementById('flightList');
+
+function renderFlightList(flights) {
+    const container = _flightListEl();
+
+    // Surface recently selected flights at the top
+    const recentCodes = new Set();
+    const recents     = [];
+    if (state.flight && !state.flight.isManual) {
+        const match = flights.find(f => f.code === state.flight.code);
+        if (match) { recentCodes.add(state.flight.code); recents.push({ ...match, _isRecent: true }); }
+    }
+    if (state.airport) {
+        Favourites.flights(state.airport.code).forEach(f => {
+            if (recentCodes.has(f.code)) return;
+            const match = flights.find(fl => fl.code === f.code);
+            if (match) { recentCodes.add(f.code); recents.push({ ...match, _isRecent: true }); }
+        });
+    }
+
+    const main = flights.filter(f => !recentCodes.has(f.code));
+    container._flights = [...recents, ...main];
+    container._fuse    = _buildFuseIndex(container._flights);
+
+    const wrap    = document.getElementById('flightSearchWrap');
+    const inp     = document.getElementById('flightSearchInp');
+    const clearBtn= document.getElementById('flightSearchClear');
+    if (inp) inp.value = '';
+    if (clearBtn) clearBtn.style.display = 'none';
+    if (wrap) wrap.classList.toggle('visible', container._flights.length > 0);
+    if (inp && container._flights.length > 0) setTimeout(() => inp.focus(), 50);
+
+    const total = _groupCodeshares(container._flights, container._flights).length;
+    _setCount(total, total);
+
+    if (!container._flights.length) { _renderNoResults(''); return; }
+    _renderStructure(container, recents, main);
+}
+
+function _setCount(n, total) {
+    const el = document.getElementById('flightSearchCount');
+    if (el) el.textContent = n === total ? n + ' flights' : n + ' of ' + total + ' flights';
+}
+
+function _renderStructure(container, recents, main) {
+    let html = '<div class="flight-list">';
+    if (recents.length) {
+        html += `<div class="flt-sec-hdr">Recently selected<button class="flt-sec-hdr-clear" onclick="clearRecentFlights()">Clear all</button></div>`;
+        html += _flightRowsHtml(recents, container._flights);
+    }
+    if (main.length) {
+        const label = main[0].departureDate ? fmtDisplay(parseISO(main[0].departureDate)) : '';
+        if (label) html += `<div class="flt-sec-hdr">${esc(label)}</div>`;
+        html += _flightRowsHtml(main, container._flights);
+    }
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function _flightRowsHtml(subset, allFlights, words) {
+    const TERM_NAMES = { N:'North Terminal', S:'South Terminal', T:'Tunnel Terminal' };
+    let html = '';
+    const groups = subset[0]?._isRecent
+        ? subset.map(f => ({ primary:f, allCodes:[f.code], idx:allFlights.indexOf(f) }))
+        : _groupCodeshares(subset, allFlights);
+
+    for (const { primary: f, allCodes, idx: rawIdx } of groups) {
+        const isSel     = state.flight && !state.flight.isManual && allCodes.includes(state.flight.code);
+        const termLabel = f.terminal ? (TERM_NAMES[f.terminal] || 'Terminal ' + f.terminal) : '';
+        const codesHtml = allCodes.map(esc).join(' <wbr>');
+        const tailfinHtml = f.tailfin
+            ? `<img class="fr-tail" src="${esc(f.tailfin)}" alt="${esc(f.airline)}" loading="lazy" onerror="this.style.display='none'">` : '';
+        const removeBtnHtml = f._isRecent
+            ? `<button class="fr-recent-remove" onclick="event.stopPropagation();removeRecentFlight('${esc(f.code)}')" aria-label="Remove from recents">✕</button>`
+            : '';
+        const destParts = [f.dest, ...(f.destCity && f.destCity !== f.dest ? [f.destCity] : []), f.destCountry].filter(Boolean);
+        const metaParts = [termLabel, f.airline].filter(Boolean).map(esc);
+        html += `<div class="flight-row${isSel?' selected':''}" role="option" aria-selected="${isSel}" tabindex="0"
+                     data-idx="${rawIdx}"
+                     onclick="pickFlight(${rawIdx})"
+                     onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();pickFlight(${rawIdx});}">
+                    <div class="fr-main">
+                        <div class="fr-top-line">
+                            <span class="fr-time">${pad2(f.hour)}:${pad2(f.minute)}</span>
+                            <span class="fr-codes-inline">${codesHtml}</span>
+                        </div>
+                        <div class="fr-dest-line">${_highlight(destParts[0], words||[])}${destParts.slice(1).map(p=>' · '+esc(p)).join('')}</div>
+                        ${metaParts.length?`<div class="fr-meta-line">${metaParts.join(' · ')}</div>`:''}
+                    </div>
+                    ${tailfinHtml}${removeBtnHtml}
+                </div>`;
+    }
+    return html;
+}
+
+function _renderNoResults(query) {
+    const container  = _flightListEl();
+    const airportName = state.airport?.full || state.airport?.code || '';
+    const dateLabel   = _viewDate ? fmtShort(_viewDate) : 'this date';
+    const msg = query
+        ? `No flights found for <strong>${esc(query)}</strong>`
+        : `No flights found from <strong>${esc(airportName)}</strong> on <strong>${esc(dateLabel)}</strong>`;
+    container.innerHTML = `<div class="flight-list"><div class="flight-no-results">
+        <div class="fnr-msg">${msg}</div>
+        <div class="fnr-hint">Try the other date above, or enter your departure time manually below.</div>
+    </div></div>`;
+    // Show manual time fallback
+    document.getElementById('manualTimeWrap').classList.add('visible');
+    renderManualTimePicker();
+}
+
+function filterFlights() {
+    const inp      = document.getElementById('flightSearchInp');
+    const clearBtn = document.getElementById('flightSearchClear');
+    const container = _flightListEl();
+    const all  = container._flights || [];
+    const fuse = container._fuse;
+    const raw  = inp ? inp.value : '';
+    const q    = raw.trim();
+    if (clearBtn) clearBtn.style.display = q ? '' : 'none';
+
+    if (!q) {
+        const total = _groupCodeshares(all, all).length;
+        _setCount(total, total);
+        const recents = all.filter(f =>  f._isRecent);
+        const main    = all.filter(f => !f._isRecent);
+        _renderStructure(container, recents, main);
+        return;
+    }
+
+    const words   = q.toLowerCase().split(/\s+/).filter(Boolean);
+    const wordSets = words.map(w => {
+        const matched = new Set();
+        const wNorm = w.replace(':','');
+        if(/^\d{2,4}$/.test(wNorm)) all.forEach(f=>{ if((pad2(f.hour)+pad2(f.minute)).includes(wNorm)) matched.add(f.code); });
+        const fuseQ = AIRLINE_ALIASES[w] || DEST_ALIASES[w] || w;
+        if(fuseQ.length>=1&&fuse){ fuse.search(fuseQ).forEach(r=>matched.add(r.item.code)); if(fuseQ!==w) fuse.search(w).forEach(r=>matched.add(r.item.code)); }
+        return matched;
+    });
+    const filtered = all.filter(f => wordSets.every(set => {
+        if(set.has(f.code)) return true;
+        return all.some(s=>s!==f&&s.hour===f.hour&&s.minute===f.minute&&s.destAirport===f.destAirport&&set.has(s.code));
+    }));
+
+    const groups = _groupCodeshares(filtered, all);
+    const total  = _groupCodeshares(all, all).length;
+    _setCount(groups.length, total);
+
+    if (!filtered.length) { _renderNoResults(q); }
+    else { container.innerHTML='<div class="flight-list">'+_flightRowsHtml(filtered, all, words)+'</div>'; }
+
+    const wrap     = document.getElementById('flightSearchWrap');
+    const resultsEl= document.getElementById('flightList');
+    if(wrap&&resultsEl){
+        let el=resultsEl,rTop=0;
+        while(el){rTop+=el.offsetTop;el=el.offsetParent;}
+        window.scrollTo({top:Math.max(0,rTop-wrap.offsetHeight-8),behavior:'instant'});
+    }
+}
+
+function clearFlightSearch() {
+    const inp = document.getElementById('flightSearchInp');
+    if (inp) { inp.value=''; inp.focus(); }
+    filterFlights();
+}
+
+function removeRecentFlight(flightCode) {
+    if (state.airport) Favourites.removeFlight(state.airport.code, flightCode);
+    const container = _flightListEl();
+    container._flights = (container._flights||[]).filter(f=>!(f._isRecent&&f.code===flightCode));
+    container._fuse    = _buildFuseIndex(container._flights);
+    const recents = container._flights.filter(f=> f._isRecent);
+    const main    = container._flights.filter(f=>!f._isRecent);
+    _renderStructure(container, recents, main);
+    _setCount(_groupCodeshares(container._flights, container._flights).length, _groupCodeshares(container._flights, container._flights).length);
+}
+
+function clearRecentFlights() {
+    if (state.airport) Favourites.clearFlights(state.airport.code);
+    const container = _flightListEl();
+    container._flights = (container._flights||[]).filter(f=>!f._isRecent);
+    container._fuse    = _buildFuseIndex(container._flights);
+    const main = container._flights;
+    _renderStructure(container, [], main);
+    _setCount(_groupCodeshares(main, main).length, _groupCodeshares(main, main).length);
+}
+
+function pickFlight(idx) {
+    const container = _flightListEl();
+    const f = (container._flights||[])[idx];
+    if (!f) return;
+    container.querySelectorAll('.flight-row').forEach(el=>el.classList.remove('selected','confirming'));
+    const el = container.querySelector('.flight-row[data-idx="'+idx+'"]');
+    if (el) { el.classList.add('selected'); setTimeout(()=>el.classList.add('confirming'),80); }
+    state.flight = { ...f };
+    track('lounge-wizard-stage3-flight', f.code+':'+f.dest);
+    Favourites.pushFlight(state.airport.code, state.flight);
+    setTimeout(() => goToStep(4), 200);
+}
+
+// ─── Manual time fallback ─────────────────────────────────────────────────────
+function renderManualTimePicker() {
+    const grid = document.getElementById('manualTimeGrid');
+    grid.innerHTML = '';
+    for (let h = 0; h <= 23; h++) {
+        const pill = document.createElement('div');
+        pill.className   = 'time-pill';
+        pill.textContent = pad2(h) + ':00';
+        pill.setAttribute('role', 'option');
+        pill.setAttribute('tabindex', '0');
+        pill.addEventListener('click',   () => pickManualTime(h));
+        pill.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); pickManualTime(h); } });
+        grid.appendChild(pill);
+    }
+}
+function pickManualTime(h) {
+    const pills = document.querySelectorAll('#manualTimeGrid .time-pill');
+    pills.forEach(p => p.classList.remove('tp-sel','tp-confirm'));
+    const idx = Math.max(0, h); // 0-indexed since we start at 00:00
+    if (pills[idx]) { pills[idx].classList.add('tp-sel'); setTimeout(() => pills[idx].classList.add('tp-confirm'), 80); }
+    state.flight = { isManual: true, hour: h, minute: 0 };
+    track('lounge-wizard-stage3-manual-time', pad2(h)+':00');
+    setTimeout(() => goToStep(4), 200);
+}
+
+// ─── Step 4: Passengers ───────────────────────────────────────────────────────
+function setupPassengers() {
+    // Show flight context
+    const ctx = document.getElementById('paxCtx');
+    if (state.flight && !state.flight.isManual) {
+        const f = state.flight;
+        const term = f.terminal ? ' · ' + fmtTerminal(f.terminal) : '';
+        ctx.innerHTML = `<strong>${esc(f.code)}</strong> to ${esc(f.dest)} · departs <strong>${pad2(f.hour)}:${pad2(f.minute)}</strong>${esc(term)}`;
+        ctx.style.display = '';
+    } else if (state.flight?.isManual) {
+        ctx.innerHTML = `Departure time: <strong>${pad2(state.flight.hour)}:00</strong>`;
+        ctx.style.display = '';
+    } else {
+        ctx.style.display = 'none';
+    }
+    updatePaxUI();
+}
+function adjustPax(type, delta) {
+    const max = 9;
+    if (type === 'adults') {
+        state.adults = Math.max(1, Math.min(max, state.adults + delta));
+    } else if (type === 'children') {
+        state.children = Math.max(0, Math.min(max, state.children + delta));
+    } else if (type === 'infants') {
+        state.infants = Math.max(0, Math.min(max, state.infants + delta));
+    }
+    updatePaxUI();
+}
+function updatePaxUI() {
+    document.getElementById('adultsCount').textContent   = state.adults;
+    document.getElementById('childrenCount').textContent = state.children;
+    document.getElementById('infantsCount').textContent  = state.infants;
+    document.getElementById('adultsDown').disabled   = state.adults   <= 1;
+    document.getElementById('childrenDown').disabled = state.children <= 0;
+    document.getElementById('infantsDown').disabled  = state.infants  <= 0;
+    document.getElementById('adultsUp').disabled   = state.adults   >= 9;
+    document.getElementById('childrenUp').disabled = state.children >= 9;
+    document.getElementById('infantsUp').disabled  = state.infants  >= 9;
+}
+function onPaxDone() {
+    track('lounge-wizard-stage4-passengers',
+        state.adults+'A '+state.children+'C '+state.infants+'I');
+    goToStep(5);
+}
+
+// ─── Step 5: Review ───────────────────────────────────────────────────────────
+function buildReview() {
+    const f   = state.flight;
+    const dep = f ? { h: f.hour, m: f.minute } : null;
+    const loungeFrom = dep ? computeLoungeFrom(dep.h, dep.m) : null;
+
+    // Lounge window card
+    const lwCard = document.getElementById('loungeWindowCard');
+    if (dep) {
+        const depTime = fmtHHMM(dep.h, dep.m);
+        lwCard.innerHTML = `
+            <div class="lounge-window-box">
+                <div class="lw-label">Lounge entry window</div>
+                <div class="lw-window">${loungeFrom} – ${depTime}</div>
+                <div class="lw-sub">Up to 3 hours before your ${depTime} departure</div>
+            </div>`;
+    } else {
+        lwCard.innerHTML = '';
+    }
+
+    // Review rows
+    const paxLabel = [
+        state.adults   + ' adult' + (state.adults   !== 1 ? 's' : ''),
+        ...(state.children > 0 ? [state.children + ' child' + (state.children !== 1 ? 'ren' : '')] : []),
+        ...(state.infants  > 0 ? [state.infants  + ' infant' + (state.infants  !== 1 ? 's' : '')]  : []),
+    ].join(', ');
+
+    let flightVal, flightNote = '';
+    if (f && !f.isManual) {
+        flightVal  = fmtNatural(state.departureDate);
+        flightNote = `<div class="rr-flight-note">${esc(f.code)} to ${esc(f.dest)}, departs ${pad2(f.hour)}:${pad2(f.minute)}${f.terminal ? ' · ' + fmtTerminal(f.terminal) : ''}</div>`;
+    } else if (f?.isManual) {
+        flightVal  = fmtNatural(state.departureDate);
+        flightNote = `<div class="rr-flight-note">Flight at ${pad2(f.hour)}:00 (entered manually)</div>`;
+    } else {
+        flightVal = fmtNatural(state.departureDate);
+    }
+
+    document.getElementById('reviewRows').innerHTML =
+        rrRow('✈️', 'Airport',    state.airport.full + ' (' + state.airport.code + ')', 1) +
+        rrRow('📅', 'Flight',     flightVal, 2, flightNote) +
+        rrRow('👥', 'Passengers', paxLabel, 4);
+
+    // Pre-fetch silently
+    _prefetchedUrl   = null;
+    _prefetchPromise = _buildPayload().then(payload =>
+        fetch(_API + '/api/lounge/search', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+        }).then(r => r.json()).then(({ redirectUrl }) => { _prefetchedUrl = redirectUrl; return redirectUrl; }).catch(() => null)
+    );
+
+    track('lounge-wizard-stage5-review', state.airport.code);
+}
+
+let _prefetchedUrl  = null;
+let _prefetchPromise = null;
+
+function rrRow(icon, label, value, step, extra) {
+    return `<div class="review-row" onclick="goToStep(${step})" role="button" tabindex="0" aria-label="${esc(label)}: ${esc(value)}. Tap to edit."
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();goToStep(${step});}">
+        <span class="rr-icon" aria-hidden="true">${icon}</span>
+        <div class="rr-body">
+            <div class="rr-lbl">${esc(label)}<span class="rr-edit-link" aria-hidden="true">&#9998;&#65039;</span></div>
+            <div class="rr-val">${esc(value)}${extra||''}</div>
+        </div>
+    </div>`;
+}
+
+function _getAgentCode() {
+    const c = document.cookie.split(';').map(s=>s.trim()).find(s=>/^agent=/i.test(s));
+    return c ? c.split('=').slice(1).join('=').toUpperCase() : '';
+}
+
+function _buildPayload() {
+    const f = state.flight;
+    const dep = f ? { h: f.hour, m: f.minute } : null;
+    const loungeFrom = dep ? computeLoungeFrom(dep.h, dep.m) : '09:00';
+    return Promise.resolve({
+        agentCode:     _getAgentCode() || 'WEB1',
+        airport:       state.airport.code,
+        departureDate: fmtISO(state.departureDate),
+        loungeFrom,
+        adults:        state.adults,
+        children:      state.children,
+        infants:       state.infants,
+        flight: (f && !f.isManual) ? {
+            code:              f.code,
+            departureDate:     f.departureDate,
+            departureTime:     fmtHHMM(f.hour, f.minute),
+            departureTerminal: f.terminal || '',
+            arrivalAirport:    f.destAirport || '',
+            dest:              f.dest || '',
+        } : null,
+    });
+}
+
+async function submitSearch() {
+    track('lounge-wizard-stage5-submit', state.airport.code);
+
+    // Save state so Back from HX restores step 5
+    sessionStorage.setItem('lw_return', JSON.stringify({
+        airport:       state.airport,
+        departureDate: fmtISO(state.departureDate),
+        flight:        state.flight || null,
+        adults:        state.adults,
+        children:      state.children,
+        infants:       state.infants,
+    }));
+    try {
+        const snap = {};
+        for (const [key, flights] of _flightDataCache) snap[key] = flights.map(({ _raw, ...f }) => f);
+        sessionStorage.setItem('lw_flights', JSON.stringify(snap));
+    } catch(e) {}
+
+    const searchBtn    = document.getElementById('searchBtn');
+    const srchLoading  = document.getElementById('srchLoading');
+    if (searchBtn)   searchBtn.style.display   = 'none';
+    if (srchLoading) srchLoading.classList.add('on');
+
+    const url = _prefetchedUrl || await _prefetchPromise;
+    if (url) { window.location.href = url; return; }
+
+    // Fallback
+    const payload = await _buildPayload();
+    const { redirectUrl } = await fetch(_API + '/api/lounge/search', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+    }).then(r => r.json());
+    window.location.href = redirectUrl;
+}
+
+// ─── Init ──────────────────────────────────────────────────────────────────────
+function _tryGpsOnLoad() {
+    ipLocationLookup();
+    if (localStorage.getItem('gps_granted')) {
+        gpsLookupSilent();
+    } else if (navigator.permissions) {
+        navigator.permissions.query({ name: 'geolocation' }).then(r => {
+            if (r.state === 'granted') gpsLookupSilent();
+        });
+    }
+}
+
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+window.addEventListener('DOMContentLoaded', () => {
+    window.scrollTo(0, 0);
+    try {
+        if (window.tracker) {
+            tracker.initialise({
+                env: window.location.hostname === 'localhost' ? 'development' : 'production',
+                service: 'lounge-wizard',
+                organisation: 'Holiday Extras Limited',
+                lb: false,
+            });
+        }
+    } catch(e) {}
+
+    // Restore flight cache
+    try {
+        const saved = sessionStorage.getItem('lw_flights');
+        if (saved) {
+            sessionStorage.removeItem('lw_flights');
+            const snap = JSON.parse(saved);
+            for (const [key, flights] of Object.entries(snap)) {
+                _flightDataCache.set(key, flights);
+                _flightCache.set(key, Promise.resolve(flights));
+            }
+        }
+    } catch(e) {}
+
+    // Restore state if Back from HX
+    const _saved = sessionStorage.getItem('lw_return');
+    if (_saved) {
+        sessionStorage.removeItem('lw_return');
+        try {
+            const s = JSON.parse(_saved);
+            state.airport       = s.airport;
+            state.departureDate = parseISO(s.departureDate);
+            state.flight        = s.flight || null;
+            state.adults        = s.adults  || 2;
+            state.children      = s.children || 0;
+            state.infants       = s.infants  || 0;
+            applyLocation(52.5, -1.5, 'default');
+            renderRecents();
+            _tryGpsOnLoad();
+            goToStep(5, true);
+            return;
+        } catch(e) { sessionStorage.removeItem('lw_return'); }
+    }
+
+    applyLocation(52.5, -1.5, 'default');
+    renderRecents();
+    _tryGpsOnLoad();
+
+    // iOS Safari sticky search bar fix
+    if (window.visualViewport && 'ontouchstart' in window) {
+        window.visualViewport.addEventListener('resize', function() {
+            const wrap = document.querySelector('.flt-search-wrap.visible');
+            if (!wrap) return;
+            const active = document.activeElement;
+            if (!active || !active.classList.contains('flt-search-inp')) return;
+            if (window.scrollY < wrap.offsetTop)
+                window.scrollTo({ top: wrap.offsetTop + 1, behavior: 'smooth' });
+        }, { passive: true });
+    }
+
+    history.replaceState({ step: 1 }, '', '#flying-from');
+    document.title = 'Flying from — Airport Lounges | Holiday Extras';
+    trackPage(1, 'flying-from');
+});
+</script>
+</body>
+</html>

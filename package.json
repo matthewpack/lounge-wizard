@@ -1,0 +1,20 @@
+{
+  "name": "lounge-wizard",
+  "version": "1.0.0",
+  "description": "Holiday Extras airport lounge wizard",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "PORT=8082 node server.js",
+    "heroku-postbuild": "html-minifier-terser index.html --minify-js '{\"compress\":false,\"mangle\":false}' --minify-css true --collapse-whitespace --remove-comments -o index.html"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.19.2"
+  },
+  "engines": {
+    "node": "20.x"
+  },
+  "devDependencies": {
+    "html-minifier-terser": "^7.2.0"
+  }
+}
