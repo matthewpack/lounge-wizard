@@ -383,8 +383,7 @@
             cursor: pointer; padding: 0; margin-bottom: 1.75rem; display: block;
             -webkit-tap-highlight-color: transparent;
         }
-        .mt-prompt { font-size: .9rem; color: var(--muted); margin: 0 0 .5rem; text-align: center; font-weight: 600; }
-        .mt-hint   { font-size: .8rem; color: var(--muted); text-align: center; margin: .75rem 0 0; line-height: 1.4; }
+        .mt-hint   { font-size: .83rem; color: var(--muted); text-align: center; margin: -.25rem 0 1rem; line-height: 1.45; }
         .mt-display {
             font-size: 4.5rem; font-weight: 800; color: var(--text);
             text-align: center; letter-spacing: .03em; line-height: 1;
@@ -529,17 +528,15 @@
             </div>
             <button class="skip-flight-link" id="skipFlightBtn" onclick="showManualTimePicker()">Can't find your flight? Skip →</button>
         </div>
-        <!-- Manual time picker — shown when skip is clicked -->
+        <!-- Manual time picker — shown when skip is clicked or flight search unavailable -->
         <div class="manual-time-wrap" id="manualTimeWrap">
-            <button class="skip-back-link" onclick="hideManualTimePicker()">← Back to flights</button>
-            <p class="mt-prompt">Approximate lounge entry time</p>
+            <p class="mt-hint">Most lounges permit entry 2–3 hours before departure — see results for all options</p>
             <div class="mt-display" id="mtDisplay">09:00</div>
             <div class="mt-slider-row">
                 <button class="mt-nudge" onclick="nudgeTime(-10)" aria-label="Back 10 minutes">−10</button>
                 <input type="range" class="mt-slider" id="mtSlider" min="240" max="1320" step="10" value="540" oninput="onSliderInput(this.value)" aria-label="Lounge entry time">
                 <button class="mt-nudge" onclick="nudgeTime(10)" aria-label="Forward 10 minutes">+10</button>
             </div>
-            <p class="mt-hint">Most lounges permit entry 2–3 hours before departure — see results for all options</p>
             <button class="btn-success" onclick="confirmManualTime()">Continue</button>
         </div>
     </section>
@@ -1243,19 +1240,19 @@ function setupFlight() {
     if (!state.airport || !state.departureDate) return;
     const _hxIataMismatch = state.airport.iata && state.airport.iata !== state.airport.code;
     if (_hxIataMismatch) {
-        // HX code differs from IATA — flight search API can't resolve this airport
+        // HX code differs from IATA — skip flight search, go straight to time picker
         document.getElementById('flightSearchView').style.display = 'none';
         document.getElementById('manualTimeWrap').classList.add('visible');
-        document.querySelector('.skip-back-link').style.display = 'none';
-        document.querySelector('.mt-prompt').textContent = 'Approximate lounge entry time';
+        document.querySelector('#step-3 .step-title').textContent = 'Lounge entry time';
+        document.querySelector('.skip-pill').style.display = 'none';
         _manualTimeMins = 540;
         _syncManualTimeUI();
         return;
     }
     document.getElementById('flightSearchView').style.display = '';
     document.getElementById('flightSearchWrap').classList.remove('visible');
-    document.querySelector('.skip-back-link').style.display = '';
-    document.querySelector('.mt-prompt').textContent = 'Approximate lounge entry time';
+    document.querySelector('#step-3 .step-title').textContent = 'Your outbound flight';
+    document.querySelector('.skip-pill').style.display = '';
     hideManualTimePicker();
     _loadFlights(state.departureDate);
 }
@@ -1542,6 +1539,8 @@ let _manualTimeMins = 540; // 09:00 default
 function showManualTimePicker() {
     document.getElementById('flightSearchView').style.display = 'none';
     document.getElementById('manualTimeWrap').classList.add('visible');
+    document.querySelector('#step-3 .step-title').textContent = 'Lounge entry time';
+    document.querySelector('.skip-pill').style.display = 'none';
     _manualTimeMins = 540;
     _syncManualTimeUI();
 }
@@ -1549,6 +1548,8 @@ function showManualTimePicker() {
 function hideManualTimePicker() {
     document.getElementById('manualTimeWrap').classList.remove('visible');
     document.getElementById('flightSearchView').style.display = '';
+    document.querySelector('#step-3 .step-title').textContent = 'Your outbound flight';
+    document.querySelector('.skip-pill').style.display = '';
 }
 
 function _syncManualTimeUI() {
