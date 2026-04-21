@@ -155,39 +155,57 @@
         }
         .rc-x:hover { background: var(--purple-m); color: var(--text); }
 
-        /* ── Airport grid ── */
-        .airport-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr);
-            gap: .5rem; margin-bottom: 1.25rem;
+        /* ── Airport search ── */
+        .ap-search-wrap {
+            display: flex; align-items: center; margin-bottom: .875rem;
+            border: 1.5px solid var(--purple); border-radius: 10px;
+            background: #fff; overflow: hidden;
+            position: -webkit-sticky; position: sticky; top: 0; z-index: 20;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
         }
-        @media (min-width: 360px) { .airport-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (min-width: 480px) { .airport-grid { grid-template-columns: repeat(4, 1fr); } }
-
-        .a-tile {
-            border: 2px solid var(--border); border-radius: 10px; padding: .875rem .5rem;
-            cursor: pointer; text-align: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: border-color .12s, background .12s, transform .15s;
-            user-select: none; -webkit-tap-highlight-color: transparent;
+        .ap-search-icon { padding: 0 .25rem 0 .875rem; font-size: 1rem; flex-shrink: 0; }
+        .ap-search-inp {
+            flex: 1; border: none; outline: none; padding: .7rem .5rem;
+            font-size: 1rem; font-family: inherit; background: transparent; color: var(--text);
+            min-width: 0;
         }
-        .a-tile:hover       { border-color: var(--purple); background: var(--purple-l); }
-        .a-tile.selected    { border-color: var(--purple); background: var(--purple-l); transform: scale(1.04); }
-        .a-tile.confirming  { border-color: var(--green); background: var(--green-l); animation: pop .3s ease; }
-        .a-name { font-size: .78rem; color: var(--muted); margin-top: .2rem; line-height: 1.3; }
-        @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+        .ap-search-clear {
+            background: none; border: none; cursor: pointer; padding: .4rem .75rem;
+            font-size: 1rem; color: var(--muted); line-height: 1; flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .ap-search-clear:hover { color: var(--text); }
 
         /* ── Airport list ── */
         .airport-list { border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden; }
         .a-row {
-            display: flex; align-items: center; padding: .875rem 1rem; gap: .875rem;
-            border-bottom: 1px solid var(--border); cursor: pointer; min-height: 52px;
+            display: flex; align-items: center; padding: .75rem 1rem; gap: .75rem;
+            border-bottom: 1px solid var(--border); cursor: pointer; min-height: 56px;
             transition: background .1s; user-select: none; -webkit-tap-highlight-color: transparent;
         }
         .a-row:last-child  { border-bottom: none; }
-        .a-row:hover       { background: var(--purple-l); }
+        .a-row:hover, .a-row:focus { background: var(--purple-l); outline: none; }
         .a-row.selected    { background: var(--purple-l); }
         .a-row.confirming  { background: var(--green-l); }
-        .a-row-name { font-size: .875rem; color: var(--text); flex: 1; }
+        .a-row-flag { font-size: 1.1rem; flex-shrink: 0; }
+        .a-row-body { flex: 1; min-width: 0; }
+        .a-row-name { font-size: .9rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+        .a-row-sub  { font-size: .78rem; color: var(--muted); margin-top: .1rem; }
+        .a-row-code { flex-shrink: 0; font-size: .75rem; font-weight: 700; color: var(--purple);
+                      background: var(--purple-l); border-radius: 4px; padding: .15rem .4rem;
+                      letter-spacing: .02em; }
+        .a-near-badge { font-size: .7rem; font-weight: 600; color: var(--green-d);
+                        background: var(--green-l); border-radius: 4px; padding: .1rem .35rem;
+                        vertical-align: middle; }
+        .ap-sec-hdr {
+            padding: .35rem 1rem; font-size: .72rem; font-weight: 700; letter-spacing: .06em;
+            text-transform: uppercase; color: var(--muted); background: #f7f6fb;
+            border-bottom: 1px solid var(--border);
+        }
+        .ap-count-subtitle {
+            font-size: .9rem; color: var(--muted); margin: -.25rem 0 1rem;
+        }
+        @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
 
         /* ── Calendar ── */
         .cal-month { margin-bottom: 2rem; }
@@ -311,16 +329,6 @@
         }
         .flt-search-clear:hover { color: var(--text); }
         mark.flt-hl { background: #fdd506; color: inherit; border-radius: 2px; padding: 0 1px; font-style: normal; }
-        /* ── Flight date strip ── */
-        .flt-date-strip { display: flex; gap: .5rem; margin-bottom: .625rem; padding: .25rem 0; }
-        .flt-date-btn {
-            flex: 0 0 auto; padding: .55rem .875rem; border: 1.5px solid var(--border);
-            border-radius: 8px; font-size: .875rem; font-weight: 600; text-align: center;
-            cursor: pointer; background: #fff; color: var(--muted); line-height: 1.3;
-            font-family: inherit;
-        }
-        .flt-date-btn.active { border-color: var(--purple); color: var(--purple); background: var(--purple-l); font-weight: 700; }
-        .flt-date-btn:hover:not(.active) { background: var(--purple-l); }
         /* ── No results ── */
         .flight-no-results { padding: .75rem 1rem; }
         .fnr-msg { font-size: .9rem; color: var(--muted); margin-bottom: .5rem; }
@@ -337,27 +345,65 @@
             opacity: .92; margin-left: auto;
         }
 
-        /* ── Manual time picker (fallback in step 3) ── */
-        .manual-time-wrap {
-            display: none; margin-top: 1rem; padding: 1rem;
-            border: 1.5px solid var(--border); border-radius: 10px; background: #f8f7fc;
+        /* ── Skip / manual time picker ── */
+        .step3-header {
+            display: flex; align-items: flex-start; justify-content: space-between;
+            margin-bottom: 20px; gap: .5rem;
         }
+        .step3-header .step-title { margin-bottom: 0; }
+        .skip-pill {
+            flex-shrink: 0; border: 1.5px solid var(--purple); border-radius: 50px;
+            background: white; color: var(--purple); font-size: .875rem; font-weight: 600;
+            font-family: inherit; padding: .375rem 1rem; cursor: pointer;
+            -webkit-tap-highlight-color: transparent; transition: background .12s;
+        }
+        .skip-pill:hover { background: var(--purple-l); }
+        .skip-flight-link {
+            display: none; width: 100%; background: none; border: none;
+            color: var(--purple); font-size: .9rem; font-weight: 600;
+            font-family: inherit; cursor: pointer; padding: .875rem .5rem;
+            text-decoration: underline; text-underline-offset: 3px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .skip-flight-link.visible { display: block; }
+        .fnr-manual-btn {
+            display: block; width: 100%; margin-top: .75rem;
+            background: white; border: 1.5px solid var(--purple);
+            border-radius: 9px; color: var(--purple); font-size: .95rem; font-weight: 600;
+            font-family: inherit; padding: .75rem; cursor: pointer; text-align: center;
+            -webkit-tap-highlight-color: transparent; transition: background .12s;
+            box-sizing: border-box;
+        }
+        .fnr-manual-btn:hover { background: var(--purple-l); }
+        .manual-time-wrap { display: none; }
         .manual-time-wrap.visible { display: block; }
-        .manual-time-label {
-            font-size: .82rem; font-weight: 700; color: var(--muted); margin-bottom: .75rem;
-            text-transform: uppercase; letter-spacing: .06em;
+        .skip-back-link {
+            background: none; border: none; color: var(--purple);
+            font-size: .9rem; font-weight: 600; font-family: inherit;
+            cursor: pointer; padding: 0; margin-bottom: 1.75rem; display: block;
+            -webkit-tap-highlight-color: transparent;
         }
-        .time-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .4rem; }
-        @media (max-width: 340px) { .time-grid { grid-template-columns: repeat(3, 1fr); } }
-        .time-pill {
-            border: 1.5px solid var(--border); border-radius: 8px; font-size: .85rem;
-            font-family: inherit; cursor: pointer; transition: all .12s; min-height: 44px;
-            display: flex; align-items: center; justify-content: center;
-            user-select: none; -webkit-tap-highlight-color: transparent; background: white;
+        .mt-prompt { font-size: .9rem; color: var(--muted); margin: 0 0 .5rem; text-align: center; }
+        .mt-display {
+            font-size: 4.5rem; font-weight: 800; color: var(--text);
+            text-align: center; letter-spacing: .03em; line-height: 1;
+            margin-bottom: 1.75rem; font-variant-numeric: tabular-nums;
         }
-        .time-pill:hover      { border-color: var(--purple); background: var(--purple-l); }
-        .time-pill.tp-sel     { border-color: var(--purple); background: var(--purple); color: white; font-weight: 700; }
-        .time-pill.tp-confirm { border-color: var(--green); background: var(--green); color: white; animation: pop .3s ease; }
+        .mt-slider-row {
+            display: flex; align-items: center; gap: .75rem; margin-bottom: 1.75rem;
+        }
+        .mt-nudge {
+            flex-shrink: 0; width: 3rem; height: 3rem; border-radius: 50%;
+            border: 1.5px solid var(--purple); background: white; color: var(--purple);
+            font-size: .85rem; font-weight: 700; font-family: inherit;
+            cursor: pointer; transition: background .12s; line-height: 1;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .mt-nudge:hover { background: var(--purple-l); }
+        .mt-slider {
+            flex: 1; height: 6px; accent-color: var(--purple);
+            cursor: pointer; min-height: 44px;
+        }
 
         /* ── Passengers step ── */
         .pax-section {
@@ -395,35 +441,22 @@
 
         /* ── Review ── */
         .review-row {
-            display: flex; align-items: flex-start; padding: .875rem 0;
-            border-bottom: 1px solid #f0f4f8; cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
+            display: flex; align-items: flex-start; gap: .875rem; padding: .875rem 1rem;
+            border: 1.5px solid var(--border); border-radius: 10px; margin-bottom: .5rem;
+            cursor: pointer; transition: background .1s; -webkit-tap-highlight-color: transparent;
         }
-        .review-row:last-child { border-bottom: none; }
-        .review-row:hover .rr-lbl { color: var(--purple); }
-        .rr-icon { font-size: 1rem; margin-right: .75rem; flex-shrink: 0; margin-top: .15rem; }
+        .review-row:hover { background: var(--purple-l); }
+        .rr-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: .1rem; }
         .rr-body { flex: 1; min-width: 0; overflow-wrap: break-word; word-break: break-word; }
-        .rr-lbl  { font-size: .82rem; color: var(--muted); display: flex; align-items: center; gap: .4rem; }
+        .rr-lbl  { font-size: .82rem; color: var(--muted); }
         .rr-edit-link { font-size: .85rem; line-height: 1; }
         .rr-val  { font-size: .95rem; font-weight: 600; color: var(--text); margin-top: .1rem; overflow-wrap: break-word; }
         .rr-flight-note { font-size: .82rem; color: var(--muted); margin-top: .25rem; }
-        .lounge-window-box {
-            background: var(--purple-l); border: 1.5px solid var(--purple-m);
-            border-radius: 10px; padding: 1rem; margin-bottom: 1.25rem; text-align: center;
-        }
-        .lw-label  { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: .25rem; }
-        .lw-window { font-size: 1.5rem; font-weight: 800; color: var(--purple); }
-        .lw-sub    { font-size: .8rem; color: var(--muted); margin-top: .2rem; }
+        .rr-early-note  { font-size: .82rem; color: #92400e; margin-top: .25rem; }
         .confidence-box { background: var(--green-l); border: 1px solid #c6f6d5; border-radius: 9px; padding: .75rem 1rem; margin-top: .875rem; }
         .confidence-box .cb-text { font-size: .82rem; color: var(--green-d); line-height: 1.5; display: block; }
         .confidence-box .cb-text strong { font-weight: 700; color: var(--green-d); }
-        #step-5 .step-title { margin-bottom: 10px; }
-
-        /* ── CTA ── */
-        .srch-loading { display: none; text-align: center; padding: 1.25rem 0 .75rem; color: var(--muted); font-size: .9rem; }
-        .srch-loading.on { display: block; }
-        .spinner { width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--purple); border-radius: 50%; animation: spin .75s linear infinite; margin: 0 auto .5rem; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        #step-4 .step-title { margin-bottom: 10px; }
         .btn-success {
             display: flex; align-items: center; justify-content: center; width: 100%;
             padding: .9rem 2rem; background: var(--green); color: white; border: none;
@@ -437,7 +470,7 @@
 <body>
 
 <header>
-    <img src="logo.png" alt="Holiday Extras — Airport Lounges" class="header-logo" width="836" height="148">
+    <img src="logo.webp" alt="Holiday Extras — Airport Lounges" class="header-logo" width="836" height="148">
 </header>
 
 <div class="hero-wrap" id="heroWrap">
@@ -452,20 +485,24 @@
     <!-- Step 1: Airport -->
     <section class="step active" id="step-1">
         <h2 class="step-title">Flying from</h2>
+        <p class="ap-count-subtitle" id="apCountPill"></p>
+        <div class="ap-search-wrap">
+            <span class="ap-search-icon" aria-hidden="true">🔍</span>
+            <input type="text" id="apSearchInp" class="ap-search-inp" placeholder="Search by airport, city, country — or just scroll" autocomplete="off" oninput="onAirportSearch()">
+            <button class="ap-search-clear" id="apSearchClear" onclick="clearAirportSearch()" style="display:none" aria-label="Clear search">✕</button>
+        </div>
         <div id="recentSection" class="recents-section" style="display:none">
             <p class="sec-lbl">Recent</p>
             <div class="recent-chips" id="recentChips"></div>
         </div>
         <button class="location-btn" id="gpsBigBtn" onclick="requestLocation()">
-            📍 Make more accurate with GPS
+            📍 Use my location
         </button>
         <div class="nearest-row">
-            <p class="sec-lbl">Nearest airports</p>
+            <p class="sec-lbl" id="airportSectionLbl">UK airports</p>
             <span class="gps-link" id="gpsSmallLink" style="display:none"></span>
         </div>
-        <div class="airport-grid" id="popularGrid" role="list" aria-label="Nearest airports"></div>
-        <p class="sec-lbl" style="margin-top:.5rem">All airports</p>
-        <div class="airport-list" id="allList" role="list" aria-label="All airports"></div>
+        <div class="airport-list" id="airportListWrap" role="list" aria-label="Airports"></div>
     </section>
 
     <!-- Step 2: Departure date -->
@@ -476,27 +513,39 @@
 
     <!-- Step 3: Flight picker -->
     <section class="step" id="step-3">
-        <h2 class="step-title">Your outbound flight</h2>
-        <div class="flight-section">
-            <div class="flt-date-strip" id="flightDateStrip"></div>
-            <div class="flt-search-wrap" id="flightSearchWrap">
-                <input type="text" id="flightSearchInp" class="flt-search-inp" placeholder="Search destination, time or airline…" autocomplete="off" oninput="filterFlights()">
-                <span class="flt-search-count" id="flightSearchCount"></span>
-                <button class="flt-search-clear" id="flightSearchClear" onclick="clearFlightSearch()" aria-label="Clear search" style="display:none">✕</button>
-            </div>
-            <div id="flightList" role="listbox"></div>
+        <div class="step3-header">
+            <h2 class="step-title">Your outbound flight</h2>
+            <button class="skip-pill" onclick="showManualTimePicker()">Skip</button>
         </div>
-        <!-- Manual time fallback — only shown when no results -->
+        <div id="flightSearchView">
+            <div class="flight-section">
+                <div class="flt-search-wrap" id="flightSearchWrap">
+                    <input type="text" id="flightSearchInp" class="flt-search-inp" placeholder="Search destination, time or airline…" autocomplete="off" oninput="filterFlights()">
+                    <span class="flt-search-count" id="flightSearchCount"></span>
+                    <button class="flt-search-clear" id="flightSearchClear" onclick="clearFlightSearch()" aria-label="Clear search" style="display:none">✕</button>
+                </div>
+                <div id="flightList" role="listbox"></div>
+            </div>
+            <button class="skip-flight-link" id="skipFlightBtn" onclick="showManualTimePicker()">Can't find your flight? Skip →</button>
+        </div>
+        <!-- Manual time picker — shown when skip is clicked -->
         <div class="manual-time-wrap" id="manualTimeWrap">
-            <div class="manual-time-label">Enter your departure time instead</div>
-            <div class="time-grid" id="manualTimeGrid"></div>
+            <button class="skip-back-link" onclick="hideManualTimePicker()">← Back to flights</button>
+            <p class="mt-prompt">When does your flight depart?</p>
+            <div class="mt-display" id="mtDisplay">09:00</div>
+            <div class="mt-slider-row">
+                <button class="mt-nudge" onclick="nudgeTime(-10)" aria-label="Back 10 minutes">−10</button>
+                <input type="range" class="mt-slider" id="mtSlider" min="240" max="1320" step="10" value="540" oninput="onSliderInput(this.value)" aria-label="Departure time">
+                <button class="mt-nudge" onclick="nudgeTime(10)" aria-label="Forward 10 minutes">+10</button>
+            </div>
+            <button class="btn-success" onclick="confirmManualTime()">Continue with this time</button>
         </div>
     </section>
 
-    <!-- Step 4: Passengers -->
+    <!-- Step 4: Search summary -->
     <section class="step" id="step-4">
-        <h2 class="step-title">Who's visiting the lounge?</h2>
-        <div class="ctx-bar" id="paxCtx"></div>
+        <h2 class="step-title">Search summary</h2>
+        <div id="reviewRows"></div>
         <div class="pax-section">
             <div class="pax-row">
                 <div class="pax-info">
@@ -512,7 +561,7 @@
             <div class="pax-row">
                 <div class="pax-info">
                     <div class="pax-label">Children</div>
-                    <div class="pax-desc">2–11 years</div>
+                    <div class="pax-desc">2–11 years — most lounges welcome children</div>
                 </div>
                 <div class="pax-ctrl">
                     <button class="pax-btn" id="childrenDown" onclick="adjustPax('children',-1)" aria-label="Remove child">−</button>
@@ -523,7 +572,7 @@
             <div class="pax-row">
                 <div class="pax-info">
                     <div class="pax-label">Infants</div>
-                    <div class="pax-desc">Under 2 years</div>
+                    <div class="pax-desc">Under 2 years — usually free, confirm at checkout</div>
                 </div>
                 <div class="pax-ctrl">
                     <button class="pax-btn" id="infantsDown" onclick="adjustPax('infants',-1)" aria-label="Remove infant">−</button>
@@ -532,21 +581,8 @@
                 </div>
             </div>
         </div>
-        <p class="pax-note">Most lounges charge for children. Infants are usually free — confirm at checkout.</p>
-        <button class="btn-success" onclick="onPaxDone()">Continue →</button>
-    </section>
-
-    <!-- Step 5: Review & search -->
-    <section class="step" id="step-5">
-        <h2 class="step-title">Your lounge search</h2>
-        <div id="loungeWindowCard"></div>
-        <div id="reviewRows"></div>
         <div style="margin-top:1.25rem">
-            <div class="srch-loading" id="srchLoading" aria-live="polite">
-                <div class="spinner" role="status" aria-label="Finding lounges"></div>
-                <p>Finding available lounges&hellip;</p>
-            </div>
-            <button class="btn-success" id="searchBtn" onclick="submitSearch()">Show lounges and prices</button>
+            <button class="btn-success" id="searchBtn" onclick="submitSearch()">Show prices and availability</button>
         </div>
         <div class="confidence-box" style="margin-top:1rem">
             <span class="cb-text"><strong>Book with confidence.</strong> Choose <strong>Flextras</strong> at checkout for free cancellation — change your plans without changing your wallet.</span>
@@ -556,40 +592,139 @@
 </main>
 
 <script>
-const POPULAR = [
-{ code:'LHR', short:'Heathrow',              full:'London Heathrow Airport',               lat:51.4706, lon:-0.4619 },
-{ code:'LGW', short:'Gatwick',               full:'London Gatwick Airport',                lat:51.1537, lon:-0.1821 },
-{ code:'MAN', short:'Manchester',            full:'Manchester Airport',                    lat:53.3537, lon:-2.2750 },
-{ code:'STN', short:'Stansted',              full:'London Stansted Airport',               lat:51.8850, lon: 0.2350 },
-{ code:'LTN', short:'Luton',                 full:'London Luton Airport',                  lat:51.8747, lon:-0.3683 },
-{ code:'BHX', short:'Birmingham',            full:'Birmingham Airport',                    lat:52.4539, lon:-1.7480 },
-{ code:'EDI', short:'Edinburgh',             full:'Edinburgh Airport',                     lat:55.9500, lon:-3.3725 },
-{ code:'GLA', short:'Glasgow International', full:'Glasgow International Airport',         lat:55.8719, lon:-4.4330 },
+// rank = booking popularity order (UK only); 999 = international / unranked
+const AIRPORTS = [
+// ── UK airports (sorted by booking volume) ────────────────────────────────────
+{code:'LHR',name:'London Heathrow',        short:'London Heathrow',        full:'London Heathrow',        city:'London',        country:null,              flag:'🇬🇧',uk:true, rank:1,  lat:51.4706,lon:-0.4619,aliases:['heathrow','t2','t3','t4','t5','terminal 5','lhr']},
+{code:'LGW',name:'London Gatwick',         short:'London Gatwick',         full:'London Gatwick',         city:'London',        country:null,              flag:'🇬🇧',uk:true, rank:2,  lat:51.1537,lon:-0.1821,aliases:['gatwick','north terminal','south terminal','lgw']},
+{code:'MAN',name:'Manchester',             short:'Manchester',             full:'Manchester',             city:'Manchester',    country:null,              flag:'🇬🇧',uk:true, rank:3,  lat:53.3537,lon:-2.2750,aliases:['ringway','man']},
+{code:'BHX',name:'Birmingham',             short:'Birmingham',             full:'Birmingham',             city:'Birmingham',    country:null,              flag:'🇬🇧',uk:true, rank:4,  lat:52.4539,lon:-1.7480,aliases:['west midlands','elmdon','bhx']},
+{code:'BRS',name:'Bristol',                short:'Bristol',                full:'Bristol',                city:'Bristol',       country:null,              flag:'🇬🇧',uk:true, rank:5,  lat:51.3827,lon:-2.7191,aliases:['lulsgate','brs']},
+{code:'NCL',name:'Newcastle',              short:'Newcastle',              full:'Newcastle',              city:'Newcastle',     country:null,              flag:'🇬🇧',uk:true, rank:6,  lat:55.0375,lon:-1.6917,aliases:['tyne','ncl']},
+{code:'EDI',name:'Edinburgh',              short:'Edinburgh',              full:'Edinburgh',              city:'Edinburgh',     country:null,              flag:'🇬🇧',uk:true, rank:7,  lat:55.9500,lon:-3.3725,aliases:['scotland','edi']},
+{code:'GLA',name:'Glasgow International',  short:'Glasgow International',  full:'Glasgow International',  city:'Glasgow',       country:null,              flag:'🇬🇧',uk:true, rank:8,  lat:55.8719,lon:-4.4330,aliases:['scotland','gla']},
+{code:'LPL',name:'Liverpool John Lennon',  short:'Liverpool John Lennon',  full:'Liverpool John Lennon',  city:'Liverpool',     country:null,              flag:'🇬🇧',uk:true, rank:9,  lat:53.3336,lon:-2.8497,aliases:['john lennon','speke','lpl']},
+{code:'EMA',name:'East Midlands',          short:'East Midlands',          full:'East Midlands',          city:'Nottingham',    country:null,              flag:'🇬🇧',uk:true, rank:10, lat:52.8311,lon:-1.3281,aliases:['nottingham','derby','leicester','castle donington','ema']},
+{code:'LBA',name:'Leeds Bradford',         short:'Leeds Bradford',         full:'Leeds Bradford',         city:'Leeds',         country:null,              flag:'🇬🇧',uk:true, rank:11, lat:53.8659,lon:-1.6606,aliases:['yorkshire','bradford','lba']},
+{code:'LTN',name:'London Luton',           short:'London Luton',           full:'London Luton',           city:'London',        country:null,              flag:'🇬🇧',uk:true, rank:12, lat:51.8747,lon:-0.3683,aliases:['luton','ltn']},
+{code:'STN',name:'London Stansted',        short:'London Stansted',        full:'London Stansted',        city:'London',        country:null,              flag:'🇬🇧',uk:true, rank:13, lat:51.8850,lon:0.2350, aliases:['stansted','essex','stn']},
+{code:'CWL',name:'Cardiff',                short:'Cardiff',                full:'Cardiff',                city:'Cardiff',       country:null,              flag:'🇬🇧',uk:true, rank:14, lat:51.3967,lon:-3.3433,aliases:['wales','rhoose','cwl']},
+{code:'MME',name:'Teesside International', short:'Teesside International', full:'Teesside International', city:'Teesside',      country:null,              flag:'🇬🇧',uk:true, rank:15, lat:54.5092,lon:-1.4294,aliases:['durham tees valley','middlesbrough','durham','mme']},
+{code:'ABZ',name:'Aberdeen',               short:'Aberdeen',               full:'Aberdeen',               city:'Aberdeen',      country:null,              flag:'🇬🇧',uk:true, rank:16, lat:57.2019,lon:-2.1978,aliases:['dyce','scotland','abz']},
+{code:'EXT',name:'Exeter',                 short:'Exeter',                 full:'Exeter',                 city:'Exeter',        country:null,              flag:'🇬🇧',uk:true, rank:17, lat:50.7344,lon:-3.4139,aliases:['devon','ext']},
+{code:'BHD',name:'Belfast City',           short:'Belfast City',           full:'Belfast City',           city:'Belfast',       country:null,              flag:'🇬🇧',uk:true, rank:18, lat:54.6175,lon:-5.8725,aliases:['george best','sydenham','northern ireland','bhd']},
+{code:'HUY',name:'Humberside',             short:'Humberside',             full:'Humberside',             city:'Humberside',    country:null,              flag:'🇬🇧',uk:true, rank:19, lat:53.5744,lon:-0.3508,aliases:['grimsby','hull','lincolnshire','huy']},
+{code:'INV',name:'Inverness',              short:'Inverness',              full:'Inverness',              city:'Inverness',     country:null,              flag:'🇬🇧',uk:true, rank:20, lat:57.5425,lon:-4.0475,aliases:['highlands','scotland','inv']},
+{code:'NWI',name:'Norwich',                short:'Norwich',                full:'Norwich',                city:'Norwich',       country:null,              flag:'🇬🇧',uk:true, rank:21, lat:52.6758,lon:1.2828, aliases:['norfolk','nwi']},
+{code:'SOU',name:'Southampton',            short:'Southampton',            full:'Southampton',            city:'Southampton',   country:null,              flag:'🇬🇧',uk:true, rank:22, lat:50.9503,lon:-1.3569,aliases:['eastleigh','hampshire','sou']},
+{code:'LCY',name:'London City',            short:'London City',            full:'London City',            city:'London',        country:null,              flag:'🇬🇧',uk:true, rank:23, lat:51.5048,lon:-0.0495,aliases:['docklands','canary wharf','lcy']},
+{code:'BFS',name:'Belfast International',  short:'Belfast International',  full:'Belfast International',  city:'Belfast',       country:null,              flag:'🇬🇧',uk:true, rank:24, lat:54.6575,lon:-6.2158,aliases:['aldergrove','northern ireland','bfs']},
+{code:'PIK',name:'Glasgow Prestwick',      short:'Glasgow Prestwick',      full:'Glasgow Prestwick',      city:'Glasgow',       country:null,              flag:'🇬🇧',uk:true, rank:25, lat:55.5094,lon:-4.5869,aliases:['prestwick','ayr','scotland','pik']},
+{code:'DSA',name:'Doncaster Sheffield',    short:'Doncaster Sheffield',    full:'Doncaster Sheffield',    city:'Doncaster',     country:null,              flag:'🇬🇧',uk:true, rank:26, lat:53.4806,lon:-1.0106,aliases:['sheffield','robin hood','dsa']},
+{code:'SEN',name:'London Southend',        short:'London Southend',        full:'London Southend',        city:'London',        country:null,              flag:'🇬🇧',uk:true, rank:27, lat:51.5714,lon:0.6956, aliases:['southend','essex','sen']},
+{code:'JER',name:'Jersey',                 short:'Jersey',                 full:'Jersey',                 city:'Jersey',        country:null,              flag:'🇬🇧',uk:true, rank:28, lat:49.2075,lon:-2.1955,aliases:['channel islands','saint helier','jer']},
+// ── International ─────────────────────────────────────────────────────────────
+{code:'AMT',name:'Amsterdam Schiphol',     short:'Amsterdam Schiphol',     full:'Amsterdam Schiphol',     city:'Amsterdam',     country:'Netherlands',     flag:'🇳🇱',uk:false,rank:999,lat:52.3105,lon:4.7683,  aliases:['schiphol','holland','ams']},
+{code:'ANL',name:'Antalya',                short:'Antalya',                full:'Antalya',                city:'Antalya',       country:'Turkey',          flag:'🇹🇷',uk:false,rank:999,lat:36.8987,lon:30.8005, aliases:['turkey']},
+{code:'ATH',name:'Athens',                 short:'Athens',                 full:'Athens',                 city:'Athens',       country:'Greece',          flag:'🇬🇷',uk:false,rank:999,lat:37.9364,lon:23.9445, aliases:['eleftherios venizelos','ath']},
+{code:'AUH',name:'Abu Dhabi',              short:'Abu Dhabi',              full:'Abu Dhabi',              city:'Abu Dhabi',     country:'UAE',             flag:'🇦🇪',uk:false,rank:999,lat:24.4330,lon:54.6511, aliases:['zayed','uae']},
+{code:'AGA',name:'Agadir',                 short:'Agadir',                 full:'Agadir',                 city:'Agadir',        country:'Morocco',         flag:'🇲🇦',uk:false,rank:999,lat:30.3250,lon:-9.4128, aliases:['morocco']},
+{code:'AKL',name:'Auckland',               short:'Auckland',               full:'Auckland',               city:'Auckland',      country:'New Zealand',     flag:'🇳🇿',uk:false,rank:999,lat:-37.0082,lon:174.7917,aliases:[]},
+{code:'ALI',name:'Alicante',               short:'Alicante',               full:'Alicante',               city:'Alicante',      country:'Spain',           flag:'🇪🇸',uk:false,rank:999,lat:38.2822,lon:-0.5582, aliases:['benidorm','costa blanca','ali']},
+{code:'BAJ',name:'Bali',                   short:'Bali',                   full:'Bali',                   city:'Bali',          country:'Indonesia',       flag:'🇮🇩',uk:false,rank:999,lat:-8.7482,lon:115.1671,aliases:['ngurah rai','denpasar']},
+{code:'BAS',name:'Basel',                  short:'Basel',                  full:'Basel',                  city:'Basel',         country:'Switzerland',     flag:'🇨🇭',uk:false,rank:999,lat:47.5896,lon:7.5299,  aliases:['euroairport','mulhouse']},
+{code:'BCA',name:'Barcelona',              short:'Barcelona',              full:'Barcelona',              city:'Barcelona',     country:'Spain',           flag:'🇪🇸',uk:false,rank:999,lat:41.2971,lon:2.0785,  aliases:['el prat','catalonia','bcn']},
+{code:'BGI',name:'Barbados',               short:'Barbados',               full:'Barbados',               city:'Bridgetown',    country:'Barbados',        flag:'🇧🇧',uk:false,rank:999,lat:13.0746,lon:-59.4925,aliases:['grantley adams','bridgetown','caribbean']},
+{code:'BJV',name:'Bodrum',                 short:'Bodrum',                 full:'Bodrum',                 city:'Bodrum',        country:'Turkey',          flag:'🇹🇷',uk:false,rank:999,lat:37.2506,lon:27.6644, aliases:['milas','turkey']},
+{code:'BKI',name:'Kota Kinabalu',          short:'Kota Kinabalu',          full:'Kota Kinabalu',          city:'Kota Kinabalu', country:'Malaysia',        flag:'🇲🇾',uk:false,rank:999,lat:5.9372, lon:116.0508,aliases:['borneo','sabah']},
+{code:'BKK',name:'Bangkok Suvarnabhumi',   short:'Bangkok Suvarnabhumi',   full:'Bangkok Suvarnabhumi',   city:'Bangkok',       country:'Thailand',        flag:'🇹🇭',uk:false,rank:999,lat:13.6811,lon:100.7475,aliases:['suvarnabhumi','bkk','thailand']},
+{code:'BLO',name:'Bologna',                short:'Bologna',                full:'Bologna',                city:'Bologna',       country:'Italy',           flag:'🇮🇹',uk:false,rank:999,lat:44.5354,lon:11.2887, aliases:['marconi','italy']},
+{code:'BRB',name:'Brisbane',               short:'Brisbane',               full:'Brisbane',               city:'Brisbane',      country:'Australia',       flag:'🇦🇺',uk:false,rank:999,lat:-27.3842,lon:153.1175,aliases:['australia']},
+{code:'BRL',name:'Brussels',               short:'Brussels',               full:'Brussels',               city:'Brussels',      country:'Belgium',         flag:'🇧🇪',uk:false,rank:999,lat:50.9014,lon:4.4844,  aliases:['zaventem','belgium','bru']},
+{code:'BSG',name:'Berlin',                 short:'Berlin',                 full:'Berlin',                 city:'Berlin',        country:'Germany',         flag:'🇩🇪',uk:false,rank:999,lat:52.3667,lon:13.5033, aliases:['schonefeld','ber','tegel','germany']},
+{code:'BUL',name:'Varna',                  short:'Varna',                  full:'Varna',                  city:'Varna',         country:'Bulgaria',        flag:'🇧🇬',uk:false,rank:999,lat:43.2321,lon:27.8251, aliases:['bulgaria']},
+{code:'BUU',name:'Budapest',               short:'Budapest',               full:'Budapest',               city:'Budapest',      country:'Hungary',         flag:'🇭🇺',uk:false,rank:999,lat:47.4369,lon:19.2556, aliases:['ferihegy','liszt','bud']},
+{code:'CFU',name:'Corfu',                  short:'Corfu',                  full:'Corfu',                  city:'Corfu',         country:'Greece',          flag:'🇬🇷',uk:false,rank:999,lat:39.6019,lon:19.9117, aliases:['kerkyra','kavos','sidari']},
+{code:'CGL',name:'Cologne',                short:'Cologne',                full:'Cologne',                city:'Cologne',       country:'Germany',         flag:'🇩🇪',uk:false,rank:999,lat:50.8659,lon:7.1427,  aliases:['koln','bonn','germany']},
+{code:'CGK',name:'Jakarta',                short:'Jakarta',                full:'Jakarta',                city:'Jakarta',       country:'Indonesia',       flag:'🇮🇩',uk:false,rank:999,lat:-6.1256,lon:106.6559,aliases:['soekarno hatta']},
+{code:'CNX',name:'Chiang Mai',             short:'Chiang Mai',             full:'Chiang Mai',             city:'Chiang Mai',    country:'Thailand',        flag:'🇹🇭',uk:false,rank:999,lat:18.7668,lon:98.9628,  aliases:['thailand']},
+{code:'CPH',name:'Copenhagen',             short:'Copenhagen',             full:'Copenhagen',             city:'Copenhagen',    country:'Denmark',         flag:'🇩🇰',uk:false,rank:999,lat:55.6181,lon:12.6561, aliases:['kastrup','denmark']},
+{code:'CPT',name:'Cape Town',              short:'Cape Town',              full:'Cape Town',              city:'Cape Town',     country:'South Africa',    flag:'🇿🇦',uk:false,rank:999,lat:-33.9649,lon:18.6017, aliases:['south africa']},
+{code:'CUN',name:'Cancún',                 short:'Cancún',                 full:'Cancún',                 city:'Cancún',        country:'Mexico',          flag:'🇲🇽',uk:false,rank:999,lat:21.0365,lon:-86.8771, aliases:['cancun','riviera maya','mexico']},
+{code:'DEL',name:'New Delhi',              short:'New Delhi',              full:'New Delhi',              city:'New Delhi',     country:'India',           flag:'🇮🇳',uk:false,rank:999,lat:28.5665,lon:77.1031,  aliases:['indira gandhi','igi','india']},
+{code:'DLM',name:'Dalaman',                short:'Dalaman',                full:'Dalaman',                city:'Dalaman',       country:'Turkey',          flag:'🇹🇷',uk:false,rank:999,lat:36.7131,lon:28.7925, aliases:['fethiye','marmaris','turkey']},
+{code:'DUT',name:'Düsseldorf',             short:'Düsseldorf',             full:'Düsseldorf',             city:'Düsseldorf',    country:'Germany',         flag:'🇩🇪',uk:false,rank:999,lat:51.2895,lon:6.7668,  aliases:['dusseldorf','germany']},
+{code:'DXB',name:'Dubai International',    short:'Dubai International',    full:'Dubai International',    city:'Dubai',         country:'UAE',             flag:'🇦🇪',uk:false,rank:999,lat:25.2532,lon:55.3657, aliases:['dubai','uae','dxb']},
+{code:'ECN',name:'Ercan (North Cyprus)',    short:'Ercan (North Cyprus)',    full:'Ercan (North Cyprus)',    city:'Nicosia',       country:'Cyprus',          flag:'🇨🇾',uk:false,rank:999,lat:35.1547,lon:33.4961, aliases:['northern cyprus']},
+{code:'ESB',name:'Ankara',                 short:'Ankara',                 full:'Ankara',                 city:'Ankara',        country:'Turkey',          flag:'🇹🇷',uk:false,rank:999,lat:40.1281,lon:32.9951, aliases:['esenboga','turkey']},
+{code:'EST',name:'Tallinn',                short:'Tallinn',                full:'Tallinn',                city:'Tallinn',       country:'Estonia',         flag:'🇪🇪',uk:false,rank:999,lat:59.4133,lon:24.8328, aliases:['estonia','tallin']},
+{code:'FAR',name:'Faro',                   short:'Faro',                   full:'Faro',                   city:'Faro',          country:'Portugal',        flag:'🇵🇹',uk:false,rank:999,lat:37.0144,lon:-7.9659, aliases:['algarve','portugal']},
+{code:'FCQ',name:'Rome Fiumicino',         short:'Rome Fiumicino',         full:'Rome Fiumicino',         city:'Rome',          country:'Italy',           flag:'🇮🇹',uk:false,rank:999,lat:41.8003,lon:12.2389, aliases:['fiumicino','leonardo da vinci','italy']},
+{code:'FNC',name:'Funchal (Madeira)',       short:'Funchal (Madeira)',       full:'Funchal (Madeira)',       city:'Funchal',       country:'Portugal',        flag:'🇵🇹',uk:false,rank:999,lat:32.6979,lon:-16.7745,aliases:['madeira','funchal']},
+{code:'FRK',name:'Frankfurt',              short:'Frankfurt',              full:'Frankfurt',              city:'Frankfurt',     country:'Germany',         flag:'🇩🇪',uk:false,rank:999,lat:50.0379,lon:8.5622,  aliases:['germany','fra']},
+{code:'FUR',name:'Fuerteventura',          short:'Fuerteventura',          full:'Fuerteventura',          city:'Fuerteventura', country:'Spain',           flag:'🇪🇸',uk:false,rank:999,lat:28.4527,lon:-13.8638,aliases:['canary islands','canaries']},
+{code:'GAM',name:'Banjul International',   short:'Banjul International',   full:'Banjul International',   city:'Banjul',        country:'Gambia',          flag:'🇬🇲',uk:false,rank:999,lat:13.3380,lon:-16.6522, aliases:['yundum','gambia']},
+{code:'GBR',name:'Gibraltar',              short:'Gibraltar',              full:'Gibraltar',              city:'Gibraltar',     country:'Gibraltar',       flag:'🇬🇮',uk:false,rank:999,lat:36.1512,lon:-5.3497, aliases:[]},
+{code:'GRN',name:'Gran Canaria',           short:'Gran Canaria',           full:'Gran Canaria',           city:'Las Palmas',    country:'Spain',           flag:'🇪🇸',uk:false,rank:999,lat:27.9319,lon:-15.3866, aliases:['las palmas','canary islands','canaries']},
+{code:'GVL',name:'Geneva',                 short:'Geneva',                 full:'Geneva',                 city:'Geneva',        country:'Switzerland',     flag:'🇨🇭',uk:false,rank:999,lat:46.2380,lon:6.1089,  aliases:['cointrin','switzerland']},
+{code:'HBG',name:'Hamburg',                short:'Hamburg',                full:'Hamburg',                city:'Hamburg',       country:'Germany',         flag:'🇩🇪',uk:false,rank:999,lat:53.6304,lon:9.9882,  aliases:['germany']},
+{code:'HER',name:'Heraklion (Crete)',       short:'Heraklion (Crete)',       full:'Heraklion (Crete)',       city:'Heraklion',     country:'Greece',          flag:'🇬🇷',uk:false,rank:999,lat:35.3397,lon:25.1803, aliases:['crete','iraklion','malia','hersonissos']},
+{code:'HKG',name:'Hong Kong International',short:'Hong Kong International',full:'Hong Kong International',city:'Hong Kong',     country:'Hong Kong',       flag:'🇭🇰',uk:false,rank:999,lat:22.3080,lon:113.9185,aliases:['chek lap kok']},
+{code:'HKT',name:'Phuket',                 short:'Phuket',                 full:'Phuket',                 city:'Phuket',        country:'Thailand',        flag:'🇹🇭',uk:false,rank:999,lat:8.1132, lon:98.3169,  aliases:['thailand']},
+{code:'IAD',name:'İzmir',                  short:'İzmir',                  full:'İzmir',                  city:'İzmir',         country:'Turkey',          flag:'🇹🇷',uk:false,rank:999,lat:38.2924,lon:27.1570, aliases:['izmir','adnan menderes','turkey']},
+{code:'IBI',name:'Ibiza',                  short:'Ibiza',                  full:'Ibiza',                  city:'Ibiza',         country:'Spain',           flag:'🇪🇸',uk:false,rank:999,lat:38.8729,lon:1.3731,  aliases:['eivissa','balearics']},
+{code:'ICA',name:'Tangier',                short:'Tangier',                full:'Tangier',                city:'Tangier',       country:'Morocco',         flag:'🇲🇦',uk:false,rank:999,lat:35.7269,lon:-5.9189, aliases:['morocco']},
+{code:'IST',name:'Istanbul',               short:'Istanbul',               full:'Istanbul',               city:'Istanbul',      country:'Turkey',          flag:'🇹🇷',uk:false,rank:999,lat:41.2753,lon:28.7519, aliases:['ataturk','turkey']},
+{code:'JHB',name:'Johor Bahru (Senai)',     short:'Johor Bahru (Senai)',     full:'Johor Bahru (Senai)',     city:'Johor Bahru',   country:'Malaysia',        flag:'🇲🇾',uk:false,rank:999,lat:1.6413, lon:103.6698, aliases:['senai','johor']},
+{code:'KRA',name:'Kraków',                 short:'Kraków',                 full:'Kraków',                 city:'Kraków',        country:'Poland',          flag:'🇵🇱',uk:false,rank:999,lat:50.0777,lon:19.7848, aliases:['krakow','john paul ii','poland']},
+{code:'KUL',name:'Kuala Lumpur',           short:'Kuala Lumpur',           full:'Kuala Lumpur',           city:'Kuala Lumpur',  country:'Malaysia',        flag:'🇲🇾',uk:false,rank:999,lat:2.7456, lon:101.7072, aliases:['klia','sepang','malaysia']},
+{code:'LCA',name:'Larnaca',                short:'Larnaca',                full:'Larnaca',                city:'Larnaca',       country:'Cyprus',          flag:'🇨🇾',uk:false,rank:999,lat:34.8751,lon:33.6249, aliases:['cyprus']},
+{code:'LIB',name:'Lisbon',                 short:'Lisbon',                 full:'Lisbon',                 city:'Lisbon',        country:'Portugal',        flag:'🇵🇹',uk:false,rank:999,lat:38.7813,lon:-9.1359, aliases:['humberto delgado','portugal']},
+{code:'LIP',name:'Leipzig Halle',          short:'Leipzig Halle',          full:'Leipzig Halle',          city:'Leipzig',       country:'Germany',         flag:'🇩🇪',uk:false,rank:999,lat:51.4239,lon:12.2364, aliases:['halle','germany']},
+{code:'LZA',name:'Lanzarote',              short:'Lanzarote',              full:'Lanzarote',              city:'Lanzarote',     country:'Spain',           flag:'🇪🇸',uk:false,rank:999,lat:28.9455,lon:-13.6052,aliases:['arrecife','canary islands','canaries']},
+{code:'MAE',name:'Madrid Barajas',         short:'Madrid Barajas',         full:'Madrid Barajas',         city:'Madrid',        country:'Spain',           flag:'🇪🇸',uk:false,rank:999,lat:40.4936,lon:-3.5668, aliases:['barajas','adolfo suarez','spain']},
+{code:'AGQ',name:'Málaga',                 short:'Málaga',                 full:'Málaga',                 city:'Málaga',        country:'Spain',           flag:'🇪🇸',uk:false,rank:999,lat:36.6749,lon:-4.4991, aliases:['malaga','costa del sol','spain']},
+{code:'MBJ',name:'Montego Bay',            short:'Montego Bay',            full:'Montego Bay',            city:'Montego Bay',   country:'Jamaica',         flag:'🇯🇲',uk:false,rank:999,lat:18.5037,lon:-77.9134, aliases:['sangster','caribbean','jamaica']},
+{code:'MCT',name:'Muscat',                 short:'Muscat',                 full:'Muscat',                 city:'Muscat',        country:'Oman',            flag:'🇴🇲',uk:false,rank:999,lat:23.5933,lon:58.2844, aliases:['seeb','oman']},
+{code:'MLA',name:'Malta',                  short:'Malta',                  full:'Malta',                  city:'Luqa',          country:'Malta',           flag:'🇲🇹',uk:false,rank:999,lat:35.8574,lon:14.4775, aliases:['luqa','malta']},
+{code:'MLE',name:'Maldives',               short:'Maldives',               full:'Maldives',               city:'Malé',          country:'Maldives',        flag:'🇲🇻',uk:false,rank:999,lat:4.1918, lon:73.5291,  aliases:['male','velana','ibrahim nasir']},
+{code:'MLB',name:'Melbourne',              short:'Melbourne',              full:'Melbourne',              city:'Melbourne',     country:'Australia',       flag:'🇦🇺',uk:false,rank:999,lat:-37.6690,lon:144.8410, aliases:['tullamarine','australia']},
+{code:'MUN',name:'Munich',                 short:'Munich',                 full:'Munich',                 city:'Munich',        country:'Germany',         flag:'🇩🇪',uk:false,rank:999,lat:48.3537,lon:11.7750, aliases:['münchen','germany','muc']},
+{code:'NCI',name:'Nice Côte d\'Azur',      short:'Nice Côte d\'Azur',      full:'Nice Côte d\'Azur',      city:'Nice',          country:'France',          flag:'🇫🇷',uk:false,rank:999,lat:43.6584,lon:7.2159,  aliases:['nice','cote d\'azur','france']},
+{code:'ORK',name:'Cork',                   short:'Cork',                   full:'Cork',                   city:'Cork',          country:'Ireland',         flag:'🇮🇪',uk:false,rank:999,lat:51.8413,lon:-8.4911, aliases:['ireland']},
+{code:'OLY',name:'Paris Orly',             short:'Paris Orly',             full:'Paris Orly',             city:'Paris',         country:'France',          flag:'🇫🇷',uk:false,rank:999,lat:48.7233,lon:2.3794,  aliases:['orly','france']},
+{code:'PDG',name:'Paris Charles de Gaulle',short:'Paris Charles de Gaulle',full:'Paris Charles de Gaulle',city:'Paris',         country:'France',          flag:'🇫🇷',uk:false,rank:999,lat:49.0097,lon:2.5479,  aliases:['cdg','roissy','paris','france']},
+{code:'PEN',name:'Penang',                 short:'Penang',                 full:'Penang',                 city:'Penang',        country:'Malaysia',        flag:'🇲🇾',uk:false,rank:999,lat:5.2977, lon:100.2769, aliases:['malaysia']},
+{code:'PFO',name:'Paphos',                 short:'Paphos',                 full:'Paphos',                 city:'Paphos',        country:'Cyprus',          flag:'🇨🇾',uk:false,rank:999,lat:34.7180,lon:32.4857, aliases:['cyprus']},
+{code:'PMQ',name:'Palma de Mallorca',      short:'Palma de Mallorca',      full:'Palma de Mallorca',      city:'Palma',         country:'Spain',           flag:'🇪🇸',uk:false,rank:999,lat:39.5517,lon:2.7388,  aliases:['majorca','mallorca','magaluf','alcudia','son san juan']},
+{code:'POP',name:'Puerto Plata',           short:'Puerto Plata',           full:'Puerto Plata',           city:'Puerto Plata',  country:'Dominican Republic',flag:'🇩🇴',uk:false,rank:999,lat:19.7579,lon:-70.5700,aliases:['dominican republic','caribbean']},
+{code:'PRA',name:'Prague',                 short:'Prague',                 full:'Prague',                 city:'Prague',        country:'Czech Republic',  flag:'🇨🇿',uk:false,rank:999,lat:50.1008,lon:14.2600, aliases:['vaclav havel','czech']},
+{code:'PUJ',name:'Punta Cana',             short:'Punta Cana',             full:'Punta Cana',             city:'Punta Cana',    country:'Dominican Republic',flag:'🇩🇴',uk:false,rank:999,lat:18.5674,lon:-68.3634,aliases:['dominican republic','caribbean']},
+{code:'PVG',name:'Shanghai Pudong',        short:'Shanghai Pudong',        full:'Shanghai Pudong',        city:'Shanghai',      country:'China',           flag:'🇨🇳',uk:false,rank:999,lat:31.1443,lon:121.8083, aliases:['pudong','china']},
+{code:'RAK',name:'Marrakech',              short:'Marrakech',              full:'Marrakech',              city:'Marrakech',     country:'Morocco',         flag:'🇲🇦',uk:false,rank:999,lat:31.6069,lon:-8.0363, aliases:['marrakesh','menara','morocco']},
+{code:'RHO',name:'Rhodes',                 short:'Rhodes',                 full:'Rhodes',                 city:'Rhodes',        country:'Greece',          flag:'🇬🇷',uk:false,rank:999,lat:36.4054,lon:28.0862, aliases:['greece']},
+{code:'SCN',name:'Saarbrücken',            short:'Saarbrücken',            full:'Saarbrücken',            city:'Saarbrücken',   country:'Germany',         flag:'🇩🇪',uk:false,rank:999,lat:49.2147,lon:7.1095,  aliases:['saarbrucken','germany']},
+{code:'SDD',name:'Santo Domingo',          short:'Santo Domingo',          full:'Santo Domingo',          city:'Santo Domingo', country:'Dominican Republic',flag:'🇩🇴',uk:false,rank:999,lat:18.4297,lon:-69.6689,aliases:['las americas','dominican republic']},
+{code:'SDN',name:'Sydney',                 short:'Sydney',                 full:'Sydney',                 city:'Sydney',        country:'Australia',       flag:'🇦🇺',uk:false,rank:999,lat:-33.9461,lon:151.1772,aliases:['kingsford smith','australia']},
+{code:'SGN',name:'Ho Chi Minh City',       short:'Ho Chi Minh City',       full:'Ho Chi Minh City',       city:'Ho Chi Minh',   country:'Vietnam',         flag:'🇻🇳',uk:false,rank:999,lat:10.8188,lon:106.6520, aliases:['saigon','tan son nhat','vietnam']},
+{code:'SIN',name:'Singapore Changi',       short:'Singapore Changi',       full:'Singapore Changi',       city:'Singapore',     country:'Singapore',       flag:'🇸🇬',uk:false,rank:999,lat:1.3644, lon:103.9915, aliases:['changi','sin']},
+{code:'STI',name:'Santiago Cibao',         short:'Santiago Cibao',         full:'Santiago Cibao',         city:'Santiago',      country:'Dominican Republic',flag:'🇩🇴',uk:false,rank:999,lat:19.4061,lon:-70.6047,aliases:['cibao','dominican republic']},
+{code:'STK',name:'Stockholm Arlanda',      short:'Stockholm Arlanda',      full:'Stockholm Arlanda',      city:'Stockholm',     country:'Sweden',          flag:'🇸🇪',uk:false,rank:999,lat:59.6519,lon:17.9186, aliases:['arlanda','sweden']},
+{code:'TFN',name:'Tenerife',               short:'Tenerife',               full:'Tenerife',               city:'Tenerife',      country:'Spain',           flag:'🇪🇸',uk:false,rank:999,lat:28.0445,lon:-16.5725, aliases:['tenerife south','tenerife north','reina sofia','los rodeos','canary islands','canaries']},
+{code:'TLV',name:'Tel Aviv',               short:'Tel Aviv',               full:'Tel Aviv',               city:'Tel Aviv',      country:'Israel',          flag:'🇮🇱',uk:false,rank:999,lat:32.0114,lon:34.8867, aliases:['ben gurion','israel']},
+{code:'TRU',name:'Turin',                  short:'Turin',                  full:'Turin',                  city:'Turin',         country:'Italy',           flag:'🇮🇹',uk:false,rank:999,lat:45.2009,lon:7.6497,  aliases:['torino','caselle','italy']},
+{code:'VLA',name:'Valencia',               short:'Valencia',               full:'Valencia',               city:'Valencia',      country:'Spain',           flag:'🇪🇸',uk:false,rank:999,lat:39.4893,lon:-0.4816, aliases:['spain']},
+{code:'YVR',name:'Vancouver',              short:'Vancouver',              full:'Vancouver',              city:'Vancouver',     country:'Canada',          flag:'🇨🇦',uk:false,rank:999,lat:49.1967,lon:-123.1815,aliases:['canada']},
+{code:'YYZ',name:'Toronto Pearson',        short:'Toronto Pearson',        full:'Toronto Pearson',        city:'Toronto',       country:'Canada',          flag:'🇨🇦',uk:false,rank:999,lat:43.6772,lon:-79.6306, aliases:['pearson','canada']},
+{code:'ZRL',name:'Zurich',                 short:'Zurich',                 full:'Zurich',                 city:'Zurich',        country:'Switzerland',     flag:'🇨🇭',uk:false,rank:999,lat:47.4647,lon:8.5492,  aliases:['kloten','zürich','switzerland']},
+{code:'DFW',name:'Dallas Fort Worth',      short:'Dallas Fort Worth',      full:'Dallas Fort Worth',      city:'Dallas',        country:'USA',             flag:'🇺🇸',uk:false,rank:999,lat:32.8998,lon:-97.0403, aliases:['dfw','usa']},
+{code:'EWR',name:'New York Newark',        short:'New York Newark',        full:'New York Newark',        city:'New York',      country:'USA',             flag:'🇺🇸',uk:false,rank:999,lat:40.6895,lon:-74.1745, aliases:['newark','ewr','usa']},
+{code:'JFK',name:'New York JFK',           short:'New York JFK',           full:'New York JFK',           city:'New York',      country:'USA',             flag:'🇺🇸',uk:false,rank:999,lat:40.6413,lon:-73.7781, aliases:['kennedy','jfk','usa']},
+{code:'SFB',name:'Orlando Sanford',        short:'Orlando Sanford',        full:'Orlando Sanford',        city:'Orlando',       country:'USA',             flag:'🇺🇸',uk:false,rank:999,lat:28.7776,lon:-81.2375, aliases:['sanford','florida','usa']},
+{code:'SFR',name:'San Francisco',          short:'San Francisco',          full:'San Francisco',          city:'San Francisco', country:'USA',             flag:'🇺🇸',uk:false,rank:999,lat:37.6213,lon:-122.3790,aliases:['sfo','usa']},
+{code:'WDC',name:'Washington Dulles',      short:'Washington Dulles',      full:'Washington Dulles',      city:'Washington DC', country:'USA',             flag:'🇺🇸',uk:false,rank:999,lat:38.9531,lon:-77.4565, aliases:['dulles','iad','usa']},
 ];
-const OTHERS = [
-{ code:'ABZ', short:'Aberdeen',              full:'Aberdeen Airport',                      lat:57.2019, lon:-2.1978 },
-{ code:'BHD', short:'Belfast City',          full:'Belfast City Airport (George Best)',    lat:54.6175, lon:-5.8725 },
-{ code:'BFS', short:'Belfast International', full:'Belfast International Airport',         lat:54.6575, lon:-6.2158 },
-{ code:'BOH', short:'Bournemouth',           full:'Bournemouth Airport',                   lat:50.7800, lon:-1.8425 },
-{ code:'BRS', short:'Bristol',               full:'Bristol Airport',                       lat:51.3827, lon:-2.7191 },
-{ code:'CWL', short:'Cardiff',               full:'Cardiff Airport',                       lat:51.3967, lon:-3.3433 },
-{ code:'DUB', short:'Dublin',                full:'Dublin Airport',                        lat:53.4213, lon:-6.2701 },
-{ code:'EMA', short:'East Midlands',         full:'East Midlands Airport',                 lat:52.8311, lon:-1.3281 },
-{ code:'EXT', short:'Exeter',                full:'Exeter Airport',                        lat:50.7344, lon:-3.4139 },
-{ code:'PIK', short:'Glasgow Prestwick',     full:'Glasgow Prestwick Airport',             lat:55.5094, lon:-4.5869 },
-{ code:'LBA', short:'Leeds Bradford',        full:'Leeds Bradford Airport',                lat:53.8659, lon:-1.6606 },
-{ code:'LPL', short:'Liverpool',             full:'Liverpool John Lennon Airport',         lat:53.3336, lon:-2.8497 },
-{ code:'LCY', short:'London City',           full:'London City Airport',                   lat:51.5048, lon:-0.0495 },
-{ code:'NCL', short:'Newcastle',             full:'Newcastle Airport',                     lat:55.0375, lon:-1.6917 },
-{ code:'NQY', short:'Newquay Cornwall',      full:'Newquay Cornwall Airport',              lat:50.4406, lon:-4.9955 },
-{ code:'NWI', short:'Norwich',               full:'Norwich Airport',                       lat:52.6758, lon: 1.2828 },
-{ code:'SNN', short:'Shannon',               full:'Shannon Airport',                       lat:52.7020, lon:-8.9248 },
-{ code:'SOU', short:'Southampton',           full:'Southampton Airport',                   lat:50.9503, lon:-1.3569 },
-{ code:'SEN', short:'Southend',              full:'London Southend Airport',               lat:51.5714, lon: 0.6956 },
-{ code:'INV', short:'Inverness',             full:'Inverness Airport',                     lat:57.5425, lon:-4.0475 },
-{ code:'MME', short:'Teesside International',full:'Teesside International Airport',        lat:54.5092, lon:-1.4294 },
-];
-const ALL = POPULAR.concat(OTHERS);
+const ALL = AIRPORTS; // backwards compat
 
 const DEST_ALIASES = {
 'benidorm':'alicante','costa blanca':'alicante','magaluf':'palma','alcudia':'palma',
@@ -693,7 +828,7 @@ function esc(s)        { return String(s).replace(/&/g,'&amp;').replace(/</g,'&l
 // loungeFrom = flight dep time − 3 h (earliest slot that covers both 2h and 3h options).
 // Clamped to 00:00 for very early flights.
 function computeLoungeFrom(depHour, depMinute) {
-    const totalMins = Math.max(0, depHour * 60 + depMinute - 180);
+    const totalMins = Math.max(4 * 60, depHour * 60 + depMinute - 180);
     return fmtHHMM(Math.floor(totalMins / 60), totalMins % 60);
 }
 
@@ -712,8 +847,8 @@ function trackPage(stageNum, stageName) {
 }
 
 // ─── Navigation ────────────────────────────────────────────────────────────────
-const STEP_HASHES = ['','flying-from','departure-date','your-flight','passengers','search'];
-const STEP_TITLES = ['','Flying from','Departure date','Your flight','Passengers','Search'];
+const STEP_HASHES = ['','flying-from','departure-date','your-flight','search'];
+const STEP_TITLES = ['','Flying from','Departure date','Your flight','Search'];
 
 function goToStep(n, fromHistory) {
     document.getElementById('step-' + currentStep).classList.remove('active');
@@ -731,8 +866,7 @@ function goToStep(n, fromHistory) {
     if (n === 1) renderRecents();
     if (n === 2) setupDate();
     if (n === 3) setupFlight();
-    if (n === 4) setupPassengers();
-    if (n === 5) buildReview();
+    if (n === 4) buildReview();
 
     trackPage(n, STEP_HASHES[n]);
 }
@@ -793,7 +927,7 @@ function renderRecents() {
     document.getElementById('recentChips').innerHTML = airports.map(a =>
         `<div class="recent-chip">
             <button type="button" class="rc-btn" onclick="pickAirport('${a.code}')">
-                <span class="rc-name" style="font-weight:700">${esc(a.short)}</span>
+                <span class="rc-name" style="font-weight:700">${esc(a.name || a.short)}</span>
             </button>
             <button type="button" class="rc-x" aria-label="Remove ${esc(a.short)}"
                     onclick="event.stopPropagation();removeRecent('${a.code}')">✕</button>
@@ -806,27 +940,89 @@ function removeRecent(code) {
     track('lounge-wizard-stage1-recent-removed', code);
 }
 
-// ─── Step 1: Airport ──────────────────────────────────────────────────────────
-function renderPopular(list) {
-    document.getElementById('popularGrid').innerHTML = list.map(a =>
-        `<div class="a-tile" id="tile-${a.code}" role="listitem" tabindex="0"
-              aria-label="${esc(a.short)}"
-              onclick="pickAirport('${a.code}')"
-              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();pickAirport('${a.code}');}">
-            <div class="a-name" style="font-size:.85rem;font-weight:700;color:var(--text)">${esc(a.short)}</div>
-         </div>`).join('');
+/// ─── Step 1: Airport ──────────────────────────────────────────────────────────
+function _airportRowHtml(a, nearSet) {
+    const isNear = nearSet && nearSet.has(a.code);
+    const subParts = [];
+    if (isNear) subParts.push(`<span class="a-near-badge">📍 Near you</span>`);
+    if (!a.uk && a.country) subParts.push(esc(a.country));
+    else if (a.city && a.city !== a.name) subParts.push(esc(a.city));
+    return `<div class="a-row" id="row-${a.code}" role="listitem" tabindex="0"
+        aria-label="${esc(a.name)}"
+        onclick="pickAirport('${a.code}')"
+        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();pickAirport('${a.code}');}">
+        <span class="a-row-flag" aria-hidden="true">${a.flag}</span>
+        <div class="a-row-body">
+            <div class="a-row-name">${esc(a.name)}</div>
+            ${subParts.length ? `<div class="a-row-sub">${subParts.join(' · ')}</div>` : ''}
+        </div>
+        <span class="a-row-code">${esc(a.code)}</span>
+    </div>`;
 }
-function renderAllList(list) {
-    document.getElementById('allList').innerHTML = list.map(a =>
-        `<div class="a-row" id="row-${a.code}" role="listitem" tabindex="0"
-              aria-label="${esc(a.short)}"
-              onclick="pickAirport('${a.code}')"
-              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();pickAirport('${a.code}');}">
-            <span class="a-row-name">${esc(a.short)}</span>
-         </div>`).join('');
+
+let _apFuse = null;
+function _getApFuse() {
+    if (!_apFuse && typeof Fuse !== 'undefined') {
+        _apFuse = new Fuse(AIRPORTS, {
+            keys: [
+                { name: 'name',    weight: 4 },
+                { name: 'code',    weight: 3 },
+                { name: 'city',    weight: 2 },
+                { name: 'country', weight: 1 },
+                { name: 'aliases', weight: 2 },
+            ],
+            threshold: 0.35, minMatchCharLength: 2, includeScore: true,
+        });
+    }
+    return _apFuse;
 }
+
+function renderDefaultAirports(nearSet) {
+    const pill = document.getElementById('apCountPill');
+    if (pill) pill.textContent = 'We can get you into over 500 lounges at ' + AIRPORTS.length + ' airports worldwide';
+    document.getElementById('airportSectionLbl').textContent = 'All airports';
+
+    const ukSorted = AIRPORTS.filter(a => a.uk).sort((a,b) => a.rank - b.rank);
+    const intl = AIRPORTS.filter(a => !a.uk);
+    const byCountry = {};
+    intl.forEach(a => { (byCountry[a.country] = byCountry[a.country] || []).push(a); });
+    const countries = Object.keys(byCountry).sort();
+
+    let html = `<div class="ap-sec-hdr">🇬🇧 United Kingdom</div>`;
+    html += ukSorted.map(a => _airportRowHtml(a, nearSet || null)).join('');
+    countries.forEach(c => {
+        const airports = byCountry[c].sort((a,b) => a.name.localeCompare(b.name));
+        html += `<div class="ap-sec-hdr">${airports[0].flag} ${esc(c)}</div>`;
+        html += airports.map(a => _airportRowHtml(a, nearSet || null)).join('');
+    });
+    document.getElementById('airportListWrap').innerHTML = html;
+}
+
+function onAirportSearch() {
+    const inp = document.getElementById('apSearchInp');
+    const clear = document.getElementById('apSearchClear');
+    const q = inp.value.trim();
+    clear.style.display = q ? '' : 'none';
+    if (!q) { renderDefaultAirports(); return; }
+    const fuse = _getApFuse();
+    const results = fuse
+        ? fuse.search(q).map(r => r.item)
+        : AIRPORTS.filter(a => [a.name,a.code,a.city||'',a.country||'',...a.aliases].join(' ').toLowerCase().includes(q.toLowerCase()));
+    const lbl = document.getElementById('airportSectionLbl');
+    lbl.textContent = results.length ? results.length + ' airport' + (results.length !== 1 ? 's' : '') : 'No airports found';
+    document.getElementById('airportListWrap').innerHTML = results.map(a => _airportRowHtml(a, null)).join('');
+}
+
+function clearAirportSearch() {
+    const inp = document.getElementById('apSearchInp');
+    inp.value = '';
+    document.getElementById('apSearchClear').style.display = 'none';
+    renderDefaultAirports();
+    inp.focus();
+}
+
 function pickAirport(code) {
-    const airport = ALL.find(a => a.code === code);
+    const airport = AIRPORTS.find(a => a.code === code);
     if (!airport) return;
     state.airport = airport;
     state.flight  = null;
@@ -839,89 +1035,132 @@ function pickAirport(code) {
 
 // ─── Location ──────────────────────────────────────────────────────────────────
 function applyLocation(lat, lon, label) {
-    const sorted = ALL.slice().sort((a,b) => haversine(lat,lon,a.lat,a.lon) - haversine(lat,lon,b.lat,b.lon));
-    renderPopular(sorted.slice(0,4));
-    renderAllList(sorted.slice(4));
+    console.log('[location] source:', label, '| coords:', lat.toFixed(4), lon.toFixed(4));
+    const sorted = AIRPORTS.slice().sort((a,b) => haversine(lat,lon,a.lat,a.lon) - haversine(lat,lon,b.lat,b.lon));
+    const nearest3 = new Set(sorted.slice(0, 3).map(a => a.code));
+    console.log('[location] nearest airports:', sorted.slice(0,4).map(a => a.code+'('+Math.round(haversine(lat,lon,a.lat,a.lon))+'km)'));
+    renderDefaultAirports(nearest3);
     track('lounge-wizard-stage1-location-used', label);
 }
+
 function fmtCoords(lat, lon) {
-    return Math.abs(lat).toFixed(4)+'°'+(lat>=0?'N':'S')+' '+Math.abs(lon).toFixed(4)+'°'+(lon>=0?'E':'W');
+    const la = Math.abs(lat).toFixed(4) + '°' + (lat >= 0 ? 'N' : 'S');
+    const lo = Math.abs(lon).toFixed(4) + '°' + (lon >= 0 ? 'E' : 'W');
+    return la + ' ' + lo;
 }
+
+// Transition the big button → small link once GPS is confirmed
 function gpsGranted(lat, lon) {
-    localStorage.setItem('gps_granted', '1');
+    localStorage.setItem('gps_granted', '1'); // remember across reloads (Safari-safe)
     const bigBtn = document.getElementById('gpsBigBtn');
     const smallLink = document.getElementById('gpsSmallLink');
-    if (bigBtn) { bigBtn.style.opacity='0'; setTimeout(()=>{ bigBtn.style.display='none'; },300); }
-    if (smallLink) { smallLink.textContent='✓ GPS · '+fmtCoords(lat,lon); smallLink.style.display=''; }
+    if (bigBtn) {
+        bigBtn.style.opacity = '0';
+        setTimeout(() => { bigBtn.style.display = 'none'; }, 300);
+    }
+    if (smallLink) {
+        smallLink.textContent = '✓ GPS · ' + fmtCoords(lat, lon);
+        smallLink.style.display = '';
+    }
 }
+
 function gpsLookupSilent() {
     if (!navigator.geolocation) return;
+    // Permission already granted — skip big button, go straight to small link
     const bigBtn = document.getElementById('gpsBigBtn');
     if (bigBtn) bigBtn.style.display = 'none';
+    console.log('[location] GPS silent lookup (permission already granted)...');
+
     function _applyPos(pos) {
-        const lat=pos.coords.latitude, lon=pos.coords.longitude;
-        applyLocation(lat, lon, 'GPS (±'+Math.round(pos.coords.accuracy)+'m)');
+        const lat = pos.coords.latitude, lon = pos.coords.longitude;
+        applyLocation(lat, lon, 'GPS (±' + Math.round(pos.coords.accuracy) + 'm)');
         gpsGranted(lat, lon);
     }
+
     function _onFail(err) {
-        if (err.code===1) {
-            const b=document.getElementById('gpsBigBtn');
-            if(b){b.innerHTML='⚠ GPS blocked · check your browser settings';b.style.display='';}
+        console.warn('[location] GPS silent failed:', err.code, err.message);
+        if (err.code === 1) {
+            // Permission denied — show button with informational state and clear stale flag
+            const bigBtn = document.getElementById('gpsBigBtn');
+            if (bigBtn) { bigBtn.innerHTML = '⚠ GPS blocked · check your browser settings'; bigBtn.style.display = ''; }
             localStorage.removeItem('gps_granted');
         } else if (!localStorage.getItem('gps_granted')) {
-            const b=document.getElementById('gpsBigBtn');
-            if(b) b.style.display='';
+            // Timeout / unavailable for first-time visitors — restore button so they can retry
+            const bigBtn = document.getElementById('gpsBigBtn');
+            if (bigBtn) bigBtn.style.display = '';
         }
+        // If gps_granted is already set it means GPS worked before on this device.
+        // Keep the button hidden — IP location is already sorting correctly.
     }
+
+    // Try high-accuracy first (real GPS / OS best effort).
+    // On desktops/laptops without a GPS chip, high-accuracy often fails with
+    // POSITION_UNAVAILABLE (code 2); fall back to low-accuracy (WiFi/OS network
+    // location) which usually succeeds on those devices.
     navigator.geolocation.getCurrentPosition(_applyPos, err => {
-        if (err.code===2) {
+        if (err.code === 2) {
+            console.log('[location] High-accuracy unavailable, retrying low-accuracy...');
             navigator.geolocation.getCurrentPosition(_applyPos, _onFail,
-                {enableHighAccuracy:false, maximumAge:300000, timeout:10000});
-        } else { _onFail(err); }
-    }, {enableHighAccuracy:true, maximumAge:300000, timeout:10000});
+                { enableHighAccuracy:false, maximumAge:300000, timeout:10000 });
+        } else {
+            _onFail(err);
+        }
+    }, { enableHighAccuracy:true, maximumAge:300000, timeout:10000 });
 }
+
 function ipLocationLookup() {
-    const CACHE_KEY='ip_loc', CACHE_TTL=86400000;
+    // Use cached result for 24 h to avoid a cross-origin request on every load
+    const CACHE_KEY = 'ip_loc', CACHE_TTL = 86400000;
     try {
-        const cached=JSON.parse(localStorage.getItem(CACHE_KEY)||'null');
-        if(cached&&cached.expires>Date.now()){applyLocation(cached.lat,cached.lon,cached.label);return;}
-    } catch(e){}
+        const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+        if (cached && cached.expires > Date.now()) {
+            console.log('[location] IP cached:', cached.label);
+            applyLocation(cached.lat, cached.lon, cached.label);
+            return;
+        }
+    } catch(e) {}
+    console.log('[location] IP lookup...');
     fetch('https://ipapi.co/json/')
-        .then(r=>r.json())
-        .then(d=>{
-            if(d.latitude&&d.longitude){
-                const label='IP ('+(d.city||'?')+')';
-                applyLocation(d.latitude,d.longitude,label);
-                try{localStorage.setItem(CACHE_KEY,JSON.stringify({lat:d.latitude,lon:d.longitude,label,expires:Date.now()+CACHE_TTL}));}catch(e){}
+        .then(r => r.json())
+        .then(d => {
+            if (d.latitude && d.longitude) {
+                const label = 'IP (' + (d.city || '?') + ')';
+                applyLocation(d.latitude, d.longitude, label);
+                try { localStorage.setItem(CACHE_KEY, JSON.stringify({ lat: d.latitude, lon: d.longitude, label, expires: Date.now() + CACHE_TTL })); } catch(e) {}
             }
-        }).catch(e=>console.warn('[location] IP lookup failed:',e));
+        })
+        .catch(e => console.warn('[location] IP lookup failed:', e));
 }
+
 function requestLocation() {
     const bigBtn = document.getElementById('gpsBigBtn');
     if (!navigator.geolocation) {
-        if (bigBtn) { bigBtn.textContent='GPS not available on this device'; bigBtn.disabled=true; }
+        if (bigBtn) { bigBtn.textContent = 'GPS not available on this device'; bigBtn.disabled = true; }
         return;
     }
-    if (bigBtn) { bigBtn.innerHTML='📍 Getting your location…'; bigBtn.disabled=true; }
+    if (bigBtn) { bigBtn.innerHTML = '📍 Getting your location…'; bigBtn.disabled = true; }
+    console.log('[location] GPS button lookup...');
     navigator.geolocation.getCurrentPosition(
         pos => {
-            const lat=pos.coords.latitude,lon=pos.coords.longitude;
-            applyLocation(lat,lon,'GPS (±'+Math.round(pos.coords.accuracy)+'m)');
-            gpsGranted(lat,lon);
+            const lat = pos.coords.latitude, lon = pos.coords.longitude;
+            applyLocation(lat, lon, 'GPS (±' + Math.round(pos.coords.accuracy) + 'm)');
+            gpsGranted(lat, lon);
         },
         err => {
-            if(bigBtn){
-                bigBtn.innerHTML=err.code===1
-                    ?'⚠ GPS blocked · check your browser settings'
-                    :'📍 Could not get GPS · tap to try again';
-                bigBtn.disabled=false;
+            console.warn('[location] GPS error:', err.code, err.message);
+            if (bigBtn) {
+                bigBtn.innerHTML = err.code === 1
+                    ? '⚠ GPS blocked · check your browser settings'
+                    : '📍 Could not get GPS · tap to try again';
+                bigBtn.disabled = false;
             }
         },
-        {enableHighAccuracy:true, maximumAge:60000, timeout:30000}
+        { enableHighAccuracy:true, maximumAge:60000, timeout:30000 }
     );
 }
+
 function haversine(lat1,lon1,lat2,lon2) {
-    const R=6371,dl=(lat2-lat1)*Math.PI/180,dg=(lon2-lon1)*Math.PI/180;
+    const R=6371, dl=(lat2-lat1)*Math.PI/180, dg=(lon2-lon1)*Math.PI/180;
     const a=Math.sin(dl/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dg/2)**2;
     return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
 }
@@ -996,35 +1235,11 @@ function pickDate(dateStr) {
 }
 
 // ─── Step 3: Flight picker ────────────────────────────────────────────────────
-let _viewDate = null;
-
 function setupFlight() {
     if (!state.airport || !state.departureDate) return;
     document.getElementById('flightSearchWrap').classList.remove('visible');
-    document.getElementById('manualTimeWrap').classList.remove('visible');
-    _viewDate = state.flight?.departureDate ? parseISO(state.flight.departureDate) : state.departureDate;
-    _renderFlightDateStrip();
-    _loadFlights(_viewDate);
-    // Pre-warm next day
-    const d1 = new Date(state.departureDate.getFullYear(), state.departureDate.getMonth(), state.departureDate.getDate() + 1);
-    fetchFlights(state.airport.code, d1);
-}
-
-function _renderFlightDateStrip() {
-    const strip = document.getElementById('flightDateStrip');
-    const base  = state.departureDate;
-    strip.innerHTML = [0, 1].map(offset => {
-        const d  = new Date(base.getFullYear(), base.getMonth(), base.getDate() + offset);
-        const ds = fmtISO(d);
-        const active = fmtISO(_viewDate) === ds;
-        return `<button class="flt-date-btn${active?' active':''}" onclick="switchFlightDate('${ds}')">${fmtShort(d)}</button>`;
-    }).join('');
-}
-
-function switchFlightDate(dateStr) {
-    _viewDate = parseISO(dateStr);
-    _renderFlightDateStrip();
-    _loadFlights(_viewDate);
+    hideManualTimePicker();
+    _loadFlights(state.departureDate);
 }
 
 function _flightSkeletonRows() {
@@ -1043,7 +1258,7 @@ function _loadFlights(date) {
     const container = document.getElementById('flightList');
     container.innerHTML = `<div class="flight-list" aria-hidden="true">${_flightSkeletonRows()}</div>`;
     document.getElementById('flightSearchWrap').classList.remove('visible');
-    document.getElementById('manualTimeWrap').classList.remove('visible');
+    document.getElementById('skipFlightBtn').classList.remove('visible');
     const savedQuery = document.getElementById('flightSearchInp')?.value || '';
     fetchFlights(state.airport.code, date).then(flights => {
         renderFlightList(flights);
@@ -1140,6 +1355,7 @@ function renderFlightList(flights) {
     const total = _groupCodeshares(container._flights, container._flights).length;
     _setCount(total, total);
 
+    document.getElementById('skipFlightBtn').classList.add('visible');
     if (!container._flights.length) { _renderNoResults(''); return; }
     _renderStructure(container, recents, main);
 }
@@ -1203,17 +1419,14 @@ function _flightRowsHtml(subset, allFlights, words) {
 function _renderNoResults(query) {
     const container  = _flightListEl();
     const airportName = state.airport?.full || state.airport?.code || '';
-    const dateLabel   = _viewDate ? fmtShort(_viewDate) : 'this date';
+    const dateLabel   = state.departureDate ? fmtShort(state.departureDate) : 'this date';
     const msg = query
         ? `No flights found for <strong>${esc(query)}</strong>`
         : `No flights found from <strong>${esc(airportName)}</strong> on <strong>${esc(dateLabel)}</strong>`;
     container.innerHTML = `<div class="flight-list"><div class="flight-no-results">
         <div class="fnr-msg">${msg}</div>
-        <div class="fnr-hint">Try the other date above, or enter your departure time manually below.</div>
+        <button class="fnr-manual-btn" onclick="showManualTimePicker()">Enter time manually instead</button>
     </div></div>`;
-    // Show manual time fallback
-    document.getElementById('manualTimeWrap').classList.add('visible');
-    renderManualTimePicker();
 }
 
 function filterFlights() {
@@ -1305,48 +1518,48 @@ function pickFlight(idx) {
     setTimeout(() => goToStep(4), 200);
 }
 
-// ─── Manual time fallback ─────────────────────────────────────────────────────
-function renderManualTimePicker() {
-    const grid = document.getElementById('manualTimeGrid');
-    grid.innerHTML = '';
-    for (let h = 0; h <= 23; h++) {
-        const pill = document.createElement('div');
-        pill.className   = 'time-pill';
-        pill.textContent = pad2(h) + ':00';
-        pill.setAttribute('role', 'option');
-        pill.setAttribute('tabindex', '0');
-        pill.addEventListener('click',   () => pickManualTime(h));
-        pill.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); pickManualTime(h); } });
-        grid.appendChild(pill);
-    }
-}
-function pickManualTime(h) {
-    const pills = document.querySelectorAll('#manualTimeGrid .time-pill');
-    pills.forEach(p => p.classList.remove('tp-sel','tp-confirm'));
-    const idx = Math.max(0, h); // 0-indexed since we start at 00:00
-    if (pills[idx]) { pills[idx].classList.add('tp-sel'); setTimeout(() => pills[idx].classList.add('tp-confirm'), 80); }
-    state.flight = { isManual: true, hour: h, minute: 0 };
-    track('lounge-wizard-stage3-manual-time', pad2(h)+':00');
-    setTimeout(() => goToStep(4), 200);
+// ─── Manual time picker (slider) ─────────────────────────────────────────────
+let _manualTimeMins = 540; // 09:00 default
+
+function showManualTimePicker() {
+    document.getElementById('flightSearchView').style.display = 'none';
+    document.getElementById('manualTimeWrap').classList.add('visible');
+    _manualTimeMins = 540;
+    _syncManualTimeUI();
 }
 
-// ─── Step 4: Passengers ───────────────────────────────────────────────────────
-function setupPassengers() {
-    // Show flight context
-    const ctx = document.getElementById('paxCtx');
-    if (state.flight && !state.flight.isManual) {
-        const f = state.flight;
-        const term = f.terminal ? ' · ' + fmtTerminal(f.terminal) : '';
-        ctx.innerHTML = `<strong>${esc(f.code)}</strong> to ${esc(f.dest)} · departs <strong>${pad2(f.hour)}:${pad2(f.minute)}</strong>${esc(term)}`;
-        ctx.style.display = '';
-    } else if (state.flight?.isManual) {
-        ctx.innerHTML = `Departure time: <strong>${pad2(state.flight.hour)}:00</strong>`;
-        ctx.style.display = '';
-    } else {
-        ctx.style.display = 'none';
-    }
-    updatePaxUI();
+function hideManualTimePicker() {
+    document.getElementById('manualTimeWrap').classList.remove('visible');
+    document.getElementById('flightSearchView').style.display = '';
 }
+
+function _syncManualTimeUI() {
+    const h = Math.floor(_manualTimeMins / 60);
+    const m = _manualTimeMins % 60;
+    document.getElementById('mtDisplay').textContent = pad2(h) + ':' + pad2(m);
+    document.getElementById('mtSlider').value = _manualTimeMins;
+}
+
+function onSliderInput(val) {
+    _manualTimeMins = parseInt(val, 10);
+    const h = Math.floor(_manualTimeMins / 60);
+    const m = _manualTimeMins % 60;
+    document.getElementById('mtDisplay').textContent = pad2(h) + ':' + pad2(m);
+}
+
+function nudgeTime(delta) {
+    _manualTimeMins = Math.max(240, Math.min(1320, _manualTimeMins + delta));
+    _syncManualTimeUI();
+}
+
+function confirmManualTime() {
+    const h = Math.floor(_manualTimeMins / 60);
+    const m = _manualTimeMins % 60;
+    state.flight = { isManual: true, hour: h, minute: m };
+    track('lounge-wizard-stage3-manual-time', pad2(h) + ':' + pad2(m));
+    goToStep(4);
+}
+
 function adjustPax(type, delta) {
     const max = 9;
     if (type === 'adults') {
@@ -1357,6 +1570,9 @@ function adjustPax(type, delta) {
         state.infants = Math.max(0, Math.min(max, state.infants + delta));
     }
     updatePaxUI();
+    // Pax count is in the URL — clear cached prefetch so submit re-fetches
+    _prefetchedUrl = null;
+    _prefetchPromise = null;
 }
 function updatePaxUI() {
     document.getElementById('adultsCount').textContent   = state.adults;
@@ -1369,76 +1585,51 @@ function updatePaxUI() {
     document.getElementById('childrenUp').disabled = state.children >= 9;
     document.getElementById('infantsUp').disabled  = state.infants  >= 9;
 }
-function onPaxDone() {
-    track('lounge-wizard-stage4-passengers',
-        state.adults+'A '+state.children+'C '+state.infants+'I');
-    goToStep(5);
-}
 
-// ─── Step 5: Review ───────────────────────────────────────────────────────────
+// ─── Step 4: Search summary ───────────────────────────────────────────────────
 function buildReview() {
-    const f   = state.flight;
-    const dep = f ? { h: f.hour, m: f.minute } : null;
-    const loungeFrom = dep ? computeLoungeFrom(dep.h, dep.m) : null;
+    const f = state.flight;
 
-    // Lounge window card
-    const lwCard = document.getElementById('loungeWindowCard');
-    if (dep) {
-        const depTime = fmtHHMM(dep.h, dep.m);
-        lwCard.innerHTML = `
-            <div class="lounge-window-box">
-                <div class="lw-label">Lounge entry window</div>
-                <div class="lw-window">${loungeFrom} – ${depTime}</div>
-                <div class="lw-sub">Up to 3 hours before your ${depTime} departure</div>
-            </div>`;
-    } else {
-        lwCard.innerHTML = '';
-    }
-
-    // Review rows
-    const paxLabel = [
-        state.adults   + ' adult' + (state.adults   !== 1 ? 's' : ''),
-        ...(state.children > 0 ? [state.children + ' child' + (state.children !== 1 ? 'ren' : '')] : []),
-        ...(state.infants  > 0 ? [state.infants  + ' infant' + (state.infants  !== 1 ? 's' : '')]  : []),
-    ].join(', ');
-
-    let flightVal, flightNote = '';
+    // Lounge entry note
+    let loungeEntryNote = '';
     if (f && !f.isManual) {
-        flightVal  = fmtNatural(state.departureDate);
-        flightNote = `<div class="rr-flight-note">${esc(f.code)} to ${esc(f.dest)}, departs ${pad2(f.hour)}:${pad2(f.minute)}${f.terminal ? ' · ' + fmtTerminal(f.terminal) : ''}</div>`;
+        const airline = f.airline ? `Your ${esc(f.airline)} flight` : `Flight ${esc(f.code)}`;
+        const term    = f.terminal ? ` from ${esc(fmtTerminal(f.terminal))}` : '';
+        loungeEntryNote = `<div class="rr-flight-note">${airline} to ${esc(f.dest)} departs at ${pad2(f.hour)}:${pad2(f.minute)}${term}</div>`;
     } else if (f?.isManual) {
-        flightVal  = fmtNatural(state.departureDate);
-        flightNote = `<div class="rr-flight-note">Flight at ${pad2(f.hour)}:00 (entered manually)</div>`;
-    } else {
-        flightVal = fmtNatural(state.departureDate);
+        loungeEntryNote = `<div class="rr-flight-note">Departure at ${pad2(f.hour)}:00</div>`;
     }
-
+    if (f && f.hour * 60 + f.minute < 7 * 60) {
+        loungeEntryNote += `<div class="rr-early-note">⏰ Most lounges open from 04:00 — we'll search from the earliest available time.</div>`;
+    }
     document.getElementById('reviewRows').innerHTML =
-        rrRow('✈️', 'Airport',    state.airport.full + ' (' + state.airport.code + ')', 1) +
-        rrRow('📅', 'Flight',     flightVal, 2, flightNote) +
-        rrRow('👥', 'Passengers', paxLabel, 4);
+        rrRow('✈️', null,           state.airport.full + ' (' + state.airport.code + ')', 1) +
+        rrRow('🛋️', 'Lounge entry', fmtNatural(state.departureDate), 3, loungeEntryNote);
+
+    updatePaxUI();
 
     // Pre-fetch silently
     _prefetchedUrl   = null;
     _prefetchPromise = _buildPayload().then(payload =>
         fetch(_API + '/api/lounge/search', {
-            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...payload, prefetch: true })
         }).then(r => r.json()).then(({ redirectUrl }) => { _prefetchedUrl = redirectUrl; return redirectUrl; }).catch(() => null)
     );
 
-    track('lounge-wizard-stage5-review', state.airport.code);
+    track('lounge-wizard-stage4-review', state.airport.code);
 }
 
 let _prefetchedUrl  = null;
 let _prefetchPromise = null;
 
 function rrRow(icon, label, value, step, extra) {
-    return `<div class="review-row" onclick="goToStep(${step})" role="button" tabindex="0" aria-label="${esc(label)}: ${esc(value)}. Tap to edit."
-             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();goToStep(${step});}">
+    const lbl = label ? `<div class="rr-lbl">${esc(label)}</div>` : '';
+    return `<div class="review-row" onclick="goToStep(${step})" role="button" tabindex="0">
         <span class="rr-icon" aria-hidden="true">${icon}</span>
         <div class="rr-body">
-            <div class="rr-lbl">${esc(label)}<span class="rr-edit-link" aria-hidden="true">&#9998;&#65039;</span></div>
-            <div class="rr-val">${esc(value)}${extra||''}</div>
+            ${lbl}
+            <div class="rr-val">${esc(value)} <span class="rr-edit-link" aria-hidden="true">✏️</span>${extra||''}</div>
         </div>
     </div>`;
 }
@@ -1448,12 +1639,32 @@ function _getAgentCode() {
     return c ? c.split('=').slice(1).join('=').toUpperCase() : '';
 }
 
+function _getVisitorId() {
+    try {
+        if (typeof tracker !== 'undefined') {
+            const v = tracker.httpHeaders?.()?.['visitor-id'] || tracker.ids?.()?.orion?.visitorId;
+            if (v) return v;
+        }
+        const m = document.cookie.match(/(?:^|; )owts=([^;]+)/);
+        return m ? m[1] : null;
+    } catch (e) { return null; }
+}
+
+function _getAuthToken() {
+    try {
+        const m = document.cookie.match(/(?:^|; )auth_token=([^;]+)/);
+        return m ? decodeURIComponent(m[1]) : null;
+    } catch (e) { return null; }
+}
+
 function _buildPayload() {
     const f = state.flight;
     const dep = f ? { h: f.hour, m: f.minute } : null;
     const loungeFrom = dep ? computeLoungeFrom(dep.h, dep.m) : '09:00';
     return Promise.resolve({
         agentCode:     _getAgentCode() || 'WEB1',
+        visitorId:     _getVisitorId(),
+        authToken:     _getAuthToken(),
         airport:       state.airport.code,
         departureDate: fmtISO(state.departureDate),
         loungeFrom,
@@ -1471,10 +1682,21 @@ function _buildPayload() {
     });
 }
 
-async function submitSearch() {
-    track('lounge-wizard-stage5-submit', state.airport.code);
+function _logAndRedirect(url) {
+    // sendBeacon survives page navigation — log fires even after redirect
+    _buildPayload().then(payload => {
+        const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+        if (!navigator.sendBeacon(_API + '/api/lounge/search', blob)) {
+            fetch(_API + '/api/lounge/search', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), keepalive: true }).catch(() => {});
+        }
+    });
+    window.location.href = url;
+}
 
-    // Save state so Back from HX restores step 5
+async function submitSearch() {
+    track('lounge-wizard-stage4-submit', state.airport.code);
+
+    // Save state so Back from HX restores the summary page
     sessionStorage.setItem('lw_return', JSON.stringify({
         airport:       state.airport,
         departureDate: fmtISO(state.departureDate),
@@ -1489,20 +1711,21 @@ async function submitSearch() {
         sessionStorage.setItem('lw_flights', JSON.stringify(snap));
     } catch(e) {}
 
-    const searchBtn    = document.getElementById('searchBtn');
-    const srchLoading  = document.getElementById('srchLoading');
-    if (searchBtn)   searchBtn.style.display   = 'none';
-    if (srchLoading) srchLoading.classList.add('on');
+    // Prefetch URL ready — log and redirect instantly, no spinner needed
+    if (_prefetchedUrl) { _logAndRedirect(_prefetchedUrl); return; }
 
-    const url = _prefetchedUrl || await _prefetchPromise;
-    if (url) { window.location.href = url; return; }
+    // Prefetch still in flight — wait for it (usually only a few hundred ms)
+    if (_prefetchPromise) {
+        const url = await _prefetchPromise;
+        if (url) { _logAndRedirect(url); return; }
+    }
 
-    // Fallback
+    // Edge case: no prefetch at all — full request
     const payload = await _buildPayload();
     const { redirectUrl } = await fetch(_API + '/api/lounge/search', {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
-    }).then(r => r.json());
-    window.location.href = redirectUrl;
+    }).then(r => r.json()).catch(() => ({ redirectUrl: null }));
+    if (redirectUrl) window.location.href = redirectUrl;
 }
 
 // ─── Init ──────────────────────────────────────────────────────────────────────
@@ -1557,15 +1780,15 @@ window.addEventListener('DOMContentLoaded', () => {
             state.adults        = s.adults  || 2;
             state.children      = s.children || 0;
             state.infants       = s.infants  || 0;
-            applyLocation(52.5, -1.5, 'default');
+            renderDefaultAirports();
             renderRecents();
             _tryGpsOnLoad();
-            goToStep(5, true);
+            goToStep(4, true);
             return;
         } catch(e) { sessionStorage.removeItem('lw_return'); }
     }
 
-    applyLocation(52.5, -1.5, 'default');
+    renderDefaultAirports();
     renderRecents();
     _tryGpsOnLoad();
 
