@@ -383,7 +383,8 @@
             cursor: pointer; padding: 0; margin-bottom: 1.75rem; display: block;
             -webkit-tap-highlight-color: transparent;
         }
-        .mt-prompt { font-size: .9rem; color: var(--muted); margin: 0 0 .5rem; text-align: center; }
+        .mt-prompt { font-size: .9rem; color: var(--muted); margin: 0 0 .5rem; text-align: center; font-weight: 600; }
+        .mt-hint   { font-size: .8rem; color: var(--muted); text-align: center; margin: .75rem 0 0; line-height: 1.4; }
         .mt-display {
             font-size: 4.5rem; font-weight: 800; color: var(--text);
             text-align: center; letter-spacing: .03em; line-height: 1;
@@ -531,14 +532,15 @@
         <!-- Manual time picker — shown when skip is clicked -->
         <div class="manual-time-wrap" id="manualTimeWrap">
             <button class="skip-back-link" onclick="hideManualTimePicker()">← Back to flights</button>
-            <p class="mt-prompt">When does your flight depart?</p>
+            <p class="mt-prompt">Approximate lounge entry time</p>
             <div class="mt-display" id="mtDisplay">09:00</div>
             <div class="mt-slider-row">
                 <button class="mt-nudge" onclick="nudgeTime(-10)" aria-label="Back 10 minutes">−10</button>
-                <input type="range" class="mt-slider" id="mtSlider" min="240" max="1320" step="10" value="540" oninput="onSliderInput(this.value)" aria-label="Departure time">
+                <input type="range" class="mt-slider" id="mtSlider" min="240" max="1320" step="10" value="540" oninput="onSliderInput(this.value)" aria-label="Lounge entry time">
                 <button class="mt-nudge" onclick="nudgeTime(10)" aria-label="Forward 10 minutes">+10</button>
             </div>
-            <button class="btn-success" onclick="confirmManualTime()">Continue with this time</button>
+            <p class="mt-hint">Most lounges permit entry 2–3 hours before departure — see results for all options</p>
+            <button class="btn-success" onclick="confirmManualTime()">Continue</button>
         </div>
     </section>
 
@@ -1239,12 +1241,13 @@ function pickDate(dateStr) {
 // ─── Step 3: Flight picker ────────────────────────────────────────────────────
 function setupFlight() {
     if (!state.airport || !state.departureDate) return;
-    if (!state.airport.uk) {
-        // HX flight data only covers UK departures — go straight to manual time entry
+    const _hxIataMismatch = state.airport.iata && state.airport.iata !== state.airport.code;
+    if (_hxIataMismatch) {
+        // HX code differs from IATA — flight search API can't resolve this airport
         document.getElementById('flightSearchView').style.display = 'none';
         document.getElementById('manualTimeWrap').classList.add('visible');
         document.querySelector('.skip-back-link').style.display = 'none';
-        document.querySelector('.mt-prompt').textContent = 'When does your flight depart from ' + (state.airport.city || state.airport.name) + '?';
+        document.querySelector('.mt-prompt').textContent = 'Approximate lounge entry time';
         _manualTimeMins = 540;
         _syncManualTimeUI();
         return;
@@ -1252,7 +1255,7 @@ function setupFlight() {
     document.getElementById('flightSearchView').style.display = '';
     document.getElementById('flightSearchWrap').classList.remove('visible');
     document.querySelector('.skip-back-link').style.display = '';
-    document.querySelector('.mt-prompt').textContent = 'When does your flight depart?';
+    document.querySelector('.mt-prompt').textContent = 'Approximate lounge entry time';
     hideManualTimePicker();
     _loadFlights(state.departureDate);
 }
@@ -1612,7 +1615,7 @@ function buildReview() {
         const term    = f.terminal ? ` from ${esc(fmtTerminal(f.terminal))}` : '';
         loungeEntryNote = `<div class="rr-flight-note">${airline} to ${esc(f.dest)} departs at ${pad2(f.hour)}:${pad2(f.minute)}${term}</div>`;
     } else if (f?.isManual) {
-        loungeEntryNote = `<div class="rr-flight-note">Departure at ${pad2(f.hour)}:00</div>`;
+        loungeEntryNote = `<div class="rr-flight-note">Entering from approximately ${pad2(f.hour)}:${pad2(f.minute)}</div>`;
     }
     if (f && f.hour * 60 + f.minute < 7 * 60) {
         loungeEntryNote += `<div class="rr-early-note">⏰ Most lounges open from 04:00 — we'll search from the earliest available time.</div>`;
