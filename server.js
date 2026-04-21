@@ -323,7 +323,7 @@ function esc(s){return s==null?'':String(s).replace(/&/g,'&amp;').replace(/</g,'
 function fmt(ts){if(!ts)return'';const d=new Date(ts);return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'})+' '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});}
 function fmtDate(d){if(!d)return'';return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'2-digit'});}
 function nilOr(v){return v?esc(v):'<span class="nil">—</span>';}
-function copyBtn(v){return'<button data-v="'+esc(v)+'" onclick="navigator.clipboard.writeText(this.dataset.v);this.textContent=\'✓\';setTimeout(()=>this.textContent=\'⧉\',1200)" title="Copy" style="background:none;border:none;cursor:pointer;font-size:0.85em;opacity:0.6;padding:0">⧉</button>';}
+function copyBtn(v){return'<button data-v="'+esc(v)+'" onclick="navigator.clipboard.writeText(this.dataset.v);this.textContent=\\'✓\\';setTimeout(()=>this.textContent=\\'⧉\\',1200)" title="Copy" style="background:none;border:none;cursor:pointer;font-size:0.85em;opacity:0.6;padding:0">⧉</button>';}
 function shortCell(v,len){if(!v)return'<span class="nil">—</span>';const s=v.slice(0,len)+(v.length>len?'…':'');return'<span title="'+esc(v)+'">'+esc(s)+'</span> '+copyBtn(v);}
 function flt(code,time){if(!code)return'<span class="nil">—</span>';const t=time?' '+esc(time):'';return'<span class="flt">'+esc(code)+'</span>'+t;}
 function sent(url){if(!url)return'<span class="nil">—</span>';return'<span class="sent"><a href="'+esc(url)+'" target="_blank">open ↗</a></span>';}
