@@ -1654,8 +1654,10 @@ function rrRow(icon, label, value, step, extra) {
 }
 
 function _getAgentCode() {
-    const c = document.cookie.split(';').map(s=>s.trim()).find(s=>/^agent=/i.test(s));
-    return c ? c.split('=').slice(1).join('=').toUpperCase() : '';
+    const fromUrl = new URLSearchParams(window.location.search).get('agent');
+    if (fromUrl) return fromUrl.toUpperCase();
+    const fromCookie = document.cookie.split(';').map(s=>s.trim()).find(s=>/^agent=/i.test(s));
+    return fromCookie ? fromCookie.split('=').slice(1).join('=').toUpperCase() : '';
 }
 
 function _getVisitorId() {
