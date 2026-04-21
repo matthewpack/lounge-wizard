@@ -1690,7 +1690,6 @@ function _buildPayload() {
         visitorId:     _getVisitorId(),
         authToken:     _getAuthToken(),
         airport:       state.airport.code,
-        airportName:   state.airport.name,
         departureDate: fmtISO(state.departureDate),
         loungeFrom,
         isManual:      f?.isManual || false,

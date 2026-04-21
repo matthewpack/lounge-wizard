@@ -327,7 +327,7 @@ function copyBtn(v){return'<button data-v="'+esc(v)+'" onclick="navigator.clipbo
 function shortCell(v,len){if(!v)return'<span class="nil">—</span>';const s=v.slice(0,len)+(v.length>len?'…':'');return'<span title="'+esc(v)+'">'+esc(s)+'</span> '+copyBtn(v);}
 function flt(code,time){if(!code)return'<span class="nil">—</span>';const t=time?' '+esc(time):'';return'<span class="flt">'+esc(code)+'</span>'+t;}
 function sent(url){if(!url)return'<span class="nil">—</span>';return'<span class="sent"><a href="'+esc(url)+'" target="_blank">open ↗</a></span>';}
-function aptCell(code,name){return'<span class="apt">'+esc(code)+'</span>'+(name?' <span style="color:#555;font-size:.8em">'+esc(name)+'</span>':'');}
+function aptCell(code){return'<span class="apt">'+esc(code)+'</span>';}
 function entryCell(t,manual){if(!t)return'<span class="nil">—</span>';return esc(t)+(manual?' <span style="background:#fff3cd;color:#856404;font-size:.7em;padding:1px 4px;border-radius:3px;font-weight:600">manual</span>':' <span style="background:#e8f5e9;color:#2e7d32;font-size:.7em;padding:1px 4px;border-radius:3px">est</span>');}
 function render(data){
   document.getElementById('tbody').innerHTML=data.map(r=>'<tr>'+
@@ -335,7 +335,7 @@ function render(data){
     '<td>'+esc(r.agentCode)+'</td>'+
     '<td>'+shortCell(r.visitorId,12)+'</td>'+
     '<td>'+shortCell(r.authToken,10)+'</td>'+
-    '<td>'+aptCell(r.airport,r.airportName)+'</td>'+
+    '<td>'+aptCell(r.airport)+'</td>'+
     '<td>'+fmtDate(r.departureDate)+'</td>'+
     '<td>'+entryCell(r.loungeFrom,r.isManual)+'</td>'+
     '<td>'+esc(r.adults)+'A '+esc(r.children)+'C '+esc(r.infants)+'I</td>'+
