@@ -942,10 +942,13 @@ function removeRecent(code) {
 }
 
 /// ─── Step 1: Airport ──────────────────────────────────────────────────────────
-function _airportRowHtml(a, nearSet) {
+let _nearData = null; // [{airport, dist}] top 10 by distance, set by applyLocation
+
+function _airportRowHtml(a, nearSet, distKm) {
     const isNear = nearSet && nearSet.has(a.code);
     const subParts = [];
-    if (isNear) subParts.push(`<span class="a-near-badge">📍 Near you</span>`);
+    if (distKm != null) subParts.push(`<span class="a-near-badge">📍 ${distKm < 1 ? '< 1' : distKm} km</span>`);
+    else if (isNear) subParts.push(`<span class="a-near-badge">📍 Near you</span>`);
     if (!a.uk && a.country) subParts.push(esc(a.country));
     else if (a.city && a.city !== a.name) subParts.push(esc(a.city));
     return `<div class="a-row" id="row-${a.code}" role="listitem" tabindex="0"
@@ -978,10 +981,13 @@ function _getApFuse() {
     return _apFuse;
 }
 
-function renderDefaultAirports(nearSet) {
+function renderDefaultAirports(nearData) {
     const pill = document.getElementById('apCountPill');
     if (pill) pill.textContent = 'We can get you into over 500 lounges at ' + AIRPORTS.length + ' airports worldwide';
     document.getElementById('airportSectionLbl').textContent = 'All airports';
+
+    // Top 3 get a badge in the UK/intl sections so they're easy to spot when scrolling
+    const badgeSet = nearData ? new Set(nearData.slice(0, 3).map(d => d.airport.code)) : null;
 
     const ukSorted = AIRPORTS.filter(a => a.uk).sort((a,b) => a.rank - b.rank);
     const intl = AIRPORTS.filter(a => !a.uk);
@@ -989,12 +995,18 @@ function renderDefaultAirports(nearSet) {
     intl.forEach(a => { (byCountry[a.country] = byCountry[a.country] || []).push(a); });
     const countries = Object.keys(byCountry).sort();
 
-    let html = `<div class="ap-sec-hdr">🇬🇧 United Kingdom</div>`;
-    html += ukSorted.map(a => _airportRowHtml(a, nearSet || null)).join('');
+    let html = '';
+    if (nearData && nearData.length) {
+        html += `<div class="ap-sec-hdr">📍 Near you</div>`;
+        html += nearData.map(d => _airportRowHtml(d.airport, null, d.dist)).join('');
+    }
+
+    html += `<div class="ap-sec-hdr">🇬🇧 United Kingdom</div>`;
+    html += ukSorted.map(a => _airportRowHtml(a, badgeSet)).join('');
     countries.forEach(c => {
         const airports = byCountry[c].sort((a,b) => a.name.localeCompare(b.name));
         html += `<div class="ap-sec-hdr">${airports[0].flag} ${esc(c)}</div>`;
-        html += airports.map(a => _airportRowHtml(a, nearSet || null)).join('');
+        html += airports.map(a => _airportRowHtml(a, badgeSet)).join('');
     });
     document.getElementById('airportListWrap').innerHTML = html;
 }
@@ -1004,7 +1016,7 @@ function onAirportSearch() {
     const clear = document.getElementById('apSearchClear');
     const q = inp.value.trim();
     clear.style.display = q ? '' : 'none';
-    if (!q) { renderDefaultAirports(); return; }
+    if (!q) { renderDefaultAirports(_nearData); return; }
     const fuse = _getApFuse();
     const results = fuse
         ? fuse.search(q).map(r => r.item)
@@ -1018,7 +1030,7 @@ function clearAirportSearch() {
     const inp = document.getElementById('apSearchInp');
     inp.value = '';
     document.getElementById('apSearchClear').style.display = 'none';
-    renderDefaultAirports();
+    renderDefaultAirports(_nearData);
     inp.focus();
 }
 
@@ -1038,9 +1050,9 @@ function pickAirport(code) {
 function applyLocation(lat, lon, label) {
     console.log('[location] source:', label, '| coords:', lat.toFixed(4), lon.toFixed(4));
     const sorted = AIRPORTS.slice().sort((a,b) => haversine(lat,lon,a.lat,a.lon) - haversine(lat,lon,b.lat,b.lon));
-    const nearest3 = new Set(sorted.slice(0, 3).map(a => a.code));
-    console.log('[location] nearest airports:', sorted.slice(0,4).map(a => a.code+'('+Math.round(haversine(lat,lon,a.lat,a.lon))+'km)'));
-    renderDefaultAirports(nearest3);
+    _nearData = sorted.slice(0, 10).map(a => ({ airport: a, dist: Math.round(haversine(lat,lon,a.lat,a.lon)) }));
+    console.log('[location] nearest airports:', _nearData.slice(0,4).map(d => d.airport.code+'('+d.dist+'km)'));
+    renderDefaultAirports(_nearData);
     track('lounge-wizard-stage1-location-used', label);
 }
 
@@ -1805,7 +1817,7 @@ window.addEventListener('DOMContentLoaded', () => {
             state.adults        = s.adults  || 2;
             state.children      = s.children || 0;
             state.infants       = s.infants  || 0;
-            renderDefaultAirports();
+            renderDefaultAirports(_nearData);
             renderRecents();
             _tryGpsOnLoad();
             goToStep(4, true);
@@ -1813,7 +1825,7 @@ window.addEventListener('DOMContentLoaded', () => {
         } catch(e) { sessionStorage.removeItem('lw_return'); }
     }
 
-    renderDefaultAirports();
+    renderDefaultAirports(_nearData);
     renderRecents();
     _tryGpsOnLoad();
 
