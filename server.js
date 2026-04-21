@@ -22,8 +22,10 @@ async function initDb() {
             visitor_id                  VARCHAR(100),
             auth_token                  TEXT,
             airport                     VARCHAR(3),
+            airport_name                VARCHAR(100),
             departure_date              DATE,
             lounge_from                 VARCHAR(5),
+            is_manual                   BOOLEAN      NOT NULL DEFAULT FALSE,
             adults                      SMALLINT,
             children                    SMALLINT,
             infants                     SMALLINT,
@@ -35,6 +37,9 @@ async function initDb() {
             redirect_url                TEXT
         )
     `);
+    // Add columns to existing tables that predate this schema version
+    await db.query(`ALTER TABLE lounge_search_log ADD COLUMN IF NOT EXISTS airport_name VARCHAR(100)`);
+    await db.query(`ALTER TABLE lounge_search_log ADD COLUMN IF NOT EXISTS is_manual BOOLEAN NOT NULL DEFAULT FALSE`);
     await db.query(`CREATE INDEX IF NOT EXISTS lounge_search_log_ts_idx ON lounge_search_log (ts DESC)`);
     console.log('[db] lounge_search_log table ready');
 }
@@ -43,7 +48,8 @@ initDb().catch(e => console.error('[db] init error:', e.message));
 
 const SELECT_COLS = `
     ts, agent_code AS "agentCode", visitor_id AS "visitorId", auth_token AS "authToken",
-    airport, departure_date AS "departureDate", lounge_from AS "loungeFrom",
+    airport, airport_name AS "airportName", departure_date AS "departureDate",
+    lounge_from AS "loungeFrom", is_manual AS "isManual",
     adults, children, infants,
     flight_code AS "flightCode",
     flight_departure_time     AS "flightDepartureTime",
@@ -59,15 +65,15 @@ async function logSearch(entry) {
         await db.query(`
             INSERT INTO lounge_search_log (
                 agent_code, visitor_id, auth_token,
-                airport, departure_date, lounge_from,
+                airport, airport_name, departure_date, lounge_from, is_manual,
                 adults, children, infants,
                 flight_code, flight_departure_time, flight_departure_terminal,
                 flight_arrival_airport, flight_dest,
                 redirect_url
-            ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
+            ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)
         `, [
             entry.agentCode, entry.visitorId || null, entry.authToken || null,
-            entry.airport, entry.departureDate, entry.loungeFrom,
+            entry.airport, entry.airportName || null, entry.departureDate, entry.loungeFrom, entry.isManual || false,
             entry.adults, entry.children, entry.infants,
             entry.flightCode || null, entry.flightDepartureTime || null, entry.flightDepartureTerminal || null,
             entry.flightArrivalAirport || null, entry.flightDest || null,
@@ -148,7 +154,7 @@ function readAuthTokenFromCookie(req) {
 }
 
 function loungeSearchHandler(req, res) {
-    const { airport, departureDate, loungeFrom, adults, children, infants, flight, agentCode, visitorId, authToken, prefetch } = req.body || {};
+    const { airport, airportName, departureDate, loungeFrom, isManual, adults, children, infants, flight, agentCode, visitorId, authToken, prefetch } = req.body || {};
 
     if (!airport || !departureDate || !loungeFrom)
         return res.status(400).json({ error: 'missing required lounge fields' });
@@ -166,8 +172,10 @@ function loungeSearchHandler(req, res) {
         visitorId:                visitorId || null,
         authToken:                resolvedAuthToken,
         airport,
+        airportName:              airportName || null,
         departureDate,
         loungeFrom,
+        isManual:                 isManual || false,
         adults:                   adults  || 1,
         children:                 children || 0,
         infants:                  infants  || 0,
@@ -235,7 +243,7 @@ async function logHandler(req, res) {
 
 async function logCsvHandler(req, res) {
     if (!checkAuth(req, res)) return;
-    const cols = ['ts','agentCode','visitorId','authToken','airport','departureDate','loungeFrom',
+    const cols = ['ts','agentCode','visitorId','authToken','airport','airportName','departureDate','loungeFrom','isManual',
                   'adults','children','infants',
                   'flightCode','flightDepartureTime','flightDepartureTerminal','flightArrivalAirport','flightDest',
                   'redirectUrl'];
@@ -295,7 +303,7 @@ tr:hover td{background:#faf8ff}
 <div class="wrap"><table id="tbl">
 <thead><tr>
   <th>Time</th><th>Agent</th><th>Visitor ID</th><th>Auth token</th>
-  <th>Airport</th><th>Date</th><th>Lounge from</th>
+  <th>Airport</th><th>Date</th><th>Entry time</th>
   <th>Pax</th><th>Flight</th><th>Terminal</th><th>Destination</th>
   <th>Sent to</th>
 </tr></thead>
@@ -318,15 +326,17 @@ function copyBtn(v){return'<button data-v="'+esc(v)+'" onclick="navigator.clipbo
 function shortCell(v,len){if(!v)return'<span class="nil">—</span>';const s=v.slice(0,len)+(v.length>len?'…':'');return'<span title="'+esc(v)+'">'+esc(s)+'</span> '+copyBtn(v);}
 function flt(code,time){if(!code)return'<span class="nil">—</span>';const t=time?' '+esc(time):'';return'<span class="flt">'+esc(code)+'</span>'+t;}
 function sent(url){if(!url)return'<span class="nil">—</span>';return'<span class="sent"><a href="'+esc(url)+'" target="_blank">open ↗</a></span>';}
+function aptCell(code,name){return'<span class="apt">'+esc(code)+'</span>'+(name?' <span style="color:#555;font-size:.8em">'+esc(name)+'</span>':'');}
+function entryCell(t,manual){if(!t)return'<span class="nil">—</span>';return esc(t)+(manual?' <span style="background:#fff3cd;color:#856404;font-size:.7em;padding:1px 4px;border-radius:3px;font-weight:600">manual</span>':' <span style="background:#e8f5e9;color:#2e7d32;font-size:.7em;padding:1px 4px;border-radius:3px">est</span>');}
 function render(data){
   document.getElementById('tbody').innerHTML=data.map(r=>'<tr>'+
     '<td title="'+esc(r.ts)+'">'+fmt(r.ts)+'</td>'+
     '<td>'+esc(r.agentCode)+'</td>'+
     '<td>'+shortCell(r.visitorId,12)+'</td>'+
     '<td>'+shortCell(r.authToken,10)+'</td>'+
-    '<td><span class="apt">'+esc(r.airport)+'</span></td>'+
+    '<td>'+aptCell(r.airport,r.airportName)+'</td>'+
     '<td>'+fmtDate(r.departureDate)+'</td>'+
-    '<td>'+esc(r.loungeFrom||'')+'</td>'+
+    '<td>'+entryCell(r.loungeFrom,r.isManual)+'</td>'+
     '<td>'+esc(r.adults)+'A '+esc(r.children)+'C '+esc(r.infants)+'I</td>'+
     '<td>'+flt(r.flightCode,r.flightDepartureTime)+'</td>'+
     '<td>'+nilOr(r.flightDepartureTerminal)+'</td>'+

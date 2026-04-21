@@ -1681,14 +1681,19 @@ function _getAuthToken() {
 function _buildPayload() {
     const f = state.flight;
     const dep = f ? { h: f.hour, m: f.minute } : null;
-    const loungeFrom = dep ? computeLoungeFrom(dep.h, dep.m) : '09:00';
+    // Manual time IS the lounge entry time — don't subtract 3h from it.
+    const loungeFrom = !dep ? '09:00'
+        : f.isManual ? fmtHHMM(dep.h, dep.m)
+        : computeLoungeFrom(dep.h, dep.m);
     return Promise.resolve({
         agentCode:     _getAgentCode() || 'WEB1',
         visitorId:     _getVisitorId(),
         authToken:     _getAuthToken(),
         airport:       state.airport.code,
+        airportName:   state.airport.name,
         departureDate: fmtISO(state.departureDate),
         loungeFrom,
+        isManual:      f?.isManual || false,
         adults:        state.adults,
         children:      state.children,
         infants:       state.infants,
