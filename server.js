@@ -230,6 +230,7 @@ async function fetchRows({ limit = 500, offset = 0, all = false } = {}) {
 
 async function logHandler(req, res) {
     if (!checkAuth(req, res)) return;
+    res.setHeader('Cache-Control', 'no-store');
     const limit  = parseInt(req.query.limit)  || 500;
     const offset = parseInt(req.query.offset) || 0;
     try {
